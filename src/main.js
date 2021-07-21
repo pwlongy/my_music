@@ -5,6 +5,9 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+// 引入 iconfont
+import "@/assets/iconfont/iconfont.css"
+
 new Vue({
   router,
   store,
