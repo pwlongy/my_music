@@ -70,19 +70,14 @@
               </el-submenu>
             </el-submenu>
 
-
-          </el-menu>
-
-     
-
-      
-          
+          </el-menu>   
 
         </el-col>
 
-
         <el-col :span="21">
-          
+          <div class="ColRight clear_fix">
+            <router-view></router-view>
+          </div>
         </el-col>
       </el-row>
       </div>
@@ -104,7 +99,7 @@ export default {
     [Menu.name]: Menu,
     [MenuItem.name]: MenuItem,
     [Submenu.name]: Submenu,
-    [MenuItemGroup.name]: MenuItemGroup
+    [MenuItemGroup.name]: MenuItemGroup,
   },
   methods: {
       handleOpen(key, keyPath) {
@@ -121,6 +116,7 @@ export default {
   .main{
     height: 100%;
     .el-row{
+      // 左侧
       height: 100%;
       .ColLeft{
         border: 1px solid #e1e1e2;
@@ -137,6 +133,11 @@ export default {
           margin-right: 14px;
           font-size: 20px;
         }
+      }
+
+      // 右侧
+      .ColRight{
+        background: #fafafa;
       }
     }
   }
