@@ -38,7 +38,7 @@
       </div>
       <div class="songItem">
         <img src=""/>
-        <span>每日歌曲推荐</span>
+        <span>每日歌曲推荐每日歌曲推荐每日歌曲推荐每日歌曲推荐每日歌曲推荐每日歌曲推荐</span>
       </div>
       <div class="songItem">
         <img src=""/>
@@ -74,7 +74,6 @@ export default {
 <style lang="scss" scoped>
   .recommend{
     padding-top: 10px;
-    height: 300px;
     .el-carousel__item h3 {
       color: #475669;
       font-size: 14px;
@@ -126,7 +125,10 @@ export default {
         span{
           display: block;
           height: 25px;
-          line-height: 25px;
+          line-height: 25px;       
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

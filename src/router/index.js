@@ -13,6 +13,10 @@ const routes = [
     component: () => import("@/components/individually/findMusic/find.vue"),
     children: [
       {
+        path: "",
+        redirect: "/home/recommend"
+      },
+      {
         path: "recommend",
         component: () => import("@/components/individually/findMusic/recommend.vue")
       },
