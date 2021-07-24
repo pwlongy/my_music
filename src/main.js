@@ -9,7 +9,6 @@ Vue.config.productionTip = false
 import "@/assets/iconfont/iconfont.css"
 
 // 引入 swiper 样式
-import 'swiper/swiper.scss';
 
 new Vue({
   router,
