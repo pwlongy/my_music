@@ -1,9 +1,10 @@
 <template>
   <div class="list">
-     <div class="title">
+     <div class="title" v-if="top">
        <h2 v-text="title"></h2>
        <span v-if="more">更多<i class="el-icon-arrow-right"></i></span>
      </div>
+    
      <div class="listGrid" v-if="Grid">
 
        <div class="listItem">
@@ -71,7 +72,9 @@ export default {
     // 标题
     title: {
       type: String,
-      required: true
+      required: false,
+      default: "look"
+      
     },
     // 是否含有更多
     more: {
@@ -89,13 +92,17 @@ export default {
       type: Number,
       required: false,
       default: 5
+    },
+    top: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
   computed: {
-    
   },
   mounted () {
-    console.log(this.more)
+
   }
 }
 </script>
