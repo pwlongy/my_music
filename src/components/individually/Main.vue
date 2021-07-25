@@ -10,48 +10,69 @@
             @close="handleClose"
             background-color="#f5f5f7"
             text-color="#5c5c5c"
+            router
             active-text-color="#000">
             <!-- 推荐 -->
-            <el-menu-item index="2">
+            <el-menu-item 
+              index="2"
+              route="/home">
               <i class="iconfont icon-music"></i>
               <span slot="title">发现音乐</span>
             </el-menu-item>
-            <el-menu-item index="3">
+            <el-menu-item 
+              index="3"
+              route="/fm">
               <i class="iconfont icon-fm"></i>
               <span slot="title">私人FM</span>
             </el-menu-item>
-            <el-menu-item index="4">
+            <el-menu-item 
+              index="4"
+              route="/broadcast">
               <i class="iconfont icon-look"></i>
               <span slot="title">Look直播</span>
             </el-menu-item>
-            <el-menu-item index="5">
+            <el-menu-item 
+              index="5"
+              route="/video">
               <i class="iconfont icon-shipin"></i>
               <span slot="title">视频</span>
             </el-menu-item>
-            <el-menu-item index="6">
+            <el-menu-item 
+              index="6"
+              route="/friend">
               <i class="iconfont icon-pengyou"></i>
               <span slot="title">朋友</span>
             </el-menu-item>
 
             <!-- 我的音乐 -->
             <span>我的音乐</span>
-             <el-menu-item index="01">
+             <el-menu-item 
+              index="01"
+              route="local">
               <i class="iconfont icon-ttpodicon"></i>
               <span slot="title">本地音乐</span>
             </el-menu-item>
-             <el-menu-item index="02">
+             <el-menu-item 
+              index="02"
+              route="/download">
               <i class="iconfont icon-menu_download-copy"></i>
               <span slot="title">下载管理</span>
             </el-menu-item>
-             <el-menu-item index="03">
+             <el-menu-item 
+              index="03"
+              route="/cloud">
               <i class="iconfont icon-yun"></i>
               <span slot="title">我的音乐云盘</span>
             </el-menu-item>
-             <el-menu-item index="04">
+             <el-menu-item 
+              index="04"
+              route="/radioStation">
               <i class="iconfont icon-diantai"></i>
               <span slot="title">我的电台</span>
             </el-menu-item>
-             <el-menu-item index="05">
+             <el-menu-item 
+              index="05"
+              route="collection">
               <i class="iconfont icon-wodeshoucang1"></i>
               <span slot="title">我的收藏</span>
             </el-menu-item>
