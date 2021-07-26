@@ -55,6 +55,10 @@ const routes = [
         ]
       }
     ]
+  },
+  {
+    path: "/fm",
+    component: () => import("@/components/individually/FM/fm.vue")
   }
 ]
 

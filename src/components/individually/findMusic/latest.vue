@@ -53,11 +53,16 @@ export default {
       },
       // 切换歌单
       handLatest(number) {
+        for(let i in this.$refs){
+          this.$refs[i].className = ""
+        }
         if(number === 1){
           this.$router.push("/home/latest/newSong")
-          console.log(this.$refs.song)
+          this.$refs.song.className = "active"
+
         }else if(number === 2 ){
           this.$router.push("/home/latest/dish")
+          this.$refs.dish.className = 'active'
         }
       } 
   }
