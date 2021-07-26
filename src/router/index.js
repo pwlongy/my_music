@@ -38,7 +38,21 @@ const routes = [
       },
       {
         path: "latest",
-        component: () => import("@/components/individually/findMusic/latest.vue")
+        component: () => import("@/components/individually/findMusic/latest.vue"),
+        children: [
+          {
+            path: "",
+            redirect: "/home/latest/newSong"
+          },
+          {
+            path: "newSong",
+            component: () => import("@/components/individually/findMusic/latest/newMusic.vue")
+          },
+          {
+            path: "dish",
+            component: () => import("@/components/individually/findMusic/latest/dish.vue")
+          }
+        ]
       }
     ]
   }
