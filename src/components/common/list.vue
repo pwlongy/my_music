@@ -5,32 +5,50 @@
        <span v-if="more">更多<i class="el-icon-arrow-right"></i></span>
      </div>
     
-     <div class="listGrid" v-if="Grid">
+     <div class="listGrid" v-if="flex">
 
-       <div class="listItem">
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
-       <div class="listItem">
+      
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
-       <div class="listItem">
+      
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
-       <div class="listItem">
+      
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
-       <div class="listItem">
+      
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
-       <div class="listItem">
+      
+       <div 
+        class="listItem"
+        :style="{'width': width, 'height': height}">
          <img src="" />
          <span></span>
        </div>
+      
      </div>
 
      <div class="fine" v-else>
@@ -83,26 +101,33 @@ export default {
       default: true
     },
     // 是否为网格布局
-    Grid: {
+    flex: {
       type: Boolean,
       required: false,
       default: true
-    },
-    Number: {
-      type: Number,
-      required: false,
-      default: 5
     },
     top: {
       type: Boolean,
       required: false,
       default: true
+    },
+    // 列表宽高
+    width: {
+      type: String,
+      required: false,
+      default: "200px"
+    },
+    height: {
+      type: String,
+      required: false,
+      default: "254px"
     }
+
   },
   computed: {
   },
   mounted () {
-
+    console.log(this.width,this.height)
   }
 }
 </script>
@@ -125,13 +150,12 @@ export default {
     }  
     // 列表
     .listGrid{
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-      grid-column-gap: 12px;
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
       padding-top: 14px;
       .listItem{
-        width: 200px;
-        height: 254px;
+        margin: 0 7px ; 
         margin-bottom: 20px;
         background: lightgreen;
         img{

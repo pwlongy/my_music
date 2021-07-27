@@ -13,16 +13,16 @@
 
 
     <!-- 列表 -->
-    <list title="听听" ></list>
+    <list title="听听" width="200px" height="254px"></list>
 
-    <list title="付费精品" :Grid="false"></list>
+    <list title="付费精品" :flex="false" ></list>
 
-    <list title="电台个性推荐"></list>
-    <list title="有声书"></list>
-    <list title="原创翻唱"></list>
-    <list title="音乐推荐"></list>
-    <list title="情感"></list>
-    <list title="脱口秀"></list>
+    <list title="电台个性推荐" width="200px" height="254px"></list>
+    <list title="有声书" width="200px" height="254px"></list>
+    <list title="原创翻唱" width="200px" height="254px"></list>
+    <list title="音乐推荐" width="200px" height="254px"></list>
+    <list title="情感" width="200px" height="254px"></list>
+    <list title="脱口秀" width="200px" height="254px"></list>
 
   </div>
 </template>

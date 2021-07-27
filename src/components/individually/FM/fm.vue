@@ -55,7 +55,7 @@
 <script>
 export default {
     components: {
-      comments: () => import("./comments.vue")
+      comments: () => import("../../common/comments.vue")
     }
 }
 </script>
