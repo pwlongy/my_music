@@ -90,9 +90,29 @@ export default {
     .block{
       width: 1230px;
       display: flex;
-      .el-slider{
+      ::v-deep .el-slider{
         width: 1120px;
         padding-top: 13px;
+        .el-slider__runway {
+          .el-slider__bar{
+            background: #e83c3c;
+          }
+          .el-slider__button-wrapper{
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: -5px;
+            line-height: 1px;
+            .el-slider__button{
+              border-color: #c3c3c3;
+              background: #e83c3c;
+              background-clip: content-box;
+              padding: 2px;
+            }
+          }
+          
+        }
       }
       span{
         margin: 0 15px;
@@ -103,9 +123,28 @@ export default {
     .other{
       margin-left: 20px;
       display: flex;
-      .el-slider{
+      ::v-deep .el-slider{
         width: 130px;
         padding-top: 13px;
+        .el-slider__runway {
+          .el-slider__bar{
+            background: #e83c3c;
+          }
+           .el-slider__button-wrapper{
+            width: 16px;
+            height: 16px;
+            background-color: #fff;
+            border-radius: 50%;
+            top: -5px;
+            line-height: 1px;
+            .el-slider__button{
+              border-color: #c3c3c3;
+              background: #e83c3c;
+              background-clip: content-box;
+              padding: 2px;
+            }
+          }
+        }
       }
       .icon-shengyin{
         font-size: 20px;

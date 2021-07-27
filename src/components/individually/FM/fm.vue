@@ -37,12 +37,15 @@
 
         <div class="title">
           <h3>精彩评论</h3>
-          <comments></comments>
         </div>
+         <comments></comments>
 
         <div class="title">
           <h3>最新评论</h3>
         </div>
+
+        <comments></comments>
+
       </div>
     </div>
   </div>
@@ -137,7 +140,9 @@ export default {
         .title{
           border-bottom: 1px solid #e1e1e2;
           padding-bottom: 12px;
-          h2{
+         
+        }
+        h2{
             font-size: 22px;
             font-weight: 300;
             i{
@@ -149,8 +154,7 @@ export default {
           h3{
             font-size: 14px;
           }
-        }
-
+          
         &>img{
           width: 100%;
           margin: 20px 0 50px;
