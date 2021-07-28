@@ -49,7 +49,7 @@
       <div class="listItem" :style="{'width': width, 'height' : height}">
         <img src=""> 
         <span>
-          <el-avatar :size="20" :src="circleUrl"></el-avatar>
+          <el-avatar :size="20" src=""></el-avatar>
           <u>pengwei</u>
           <h2><i class="iconfont"></i>95万</h2>
         </span>

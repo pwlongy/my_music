@@ -63,6 +63,14 @@ const routes = [
   {
     path: "/broadcast",
     component: () => import("@/components/individually/broadcast/broadcast.vue")
+  },
+  {
+    path: "/video",
+    component: () => import("@/components/individually/Video/video.vue")
+  },
+  {
+    path: "/friend",
+    component: () => import("@/components/individually/friend/friend.vue")
   }
 ]
 
