@@ -10,44 +10,52 @@
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
-      
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
-      
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
-      
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
-      
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
-      
        <div 
         class="listItem"
         :style="{'width': width, 'height': height}">
-         <img src="" />
+         <img 
+          src="" 
+          :style="{'height' : imgheight}"/>
          <span></span>
        </div>
+      
       
      </div>
 
@@ -121,6 +129,11 @@ export default {
       type: String,
       required: false,
       default: "254px"
+    },
+    imgheight: {
+      type: String,
+      required: false,
+      default: "254px"
     }
 
   },
@@ -160,7 +173,7 @@ export default {
         background: lightgreen;
         img{
           display: block;
-          width: 200px;
+          width: 100%;
           height: 200px;
           background: lightsalmon;
         }
@@ -185,7 +198,7 @@ export default {
           flex: 1;
           display: flex;
           img{
-            width: 150px;
+            width: 100%;
             height: 150px;
             display: block;
           }

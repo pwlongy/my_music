@@ -108,6 +108,7 @@ export default {
 <style lang="scss" scoped>
   .broadcast{
     padding: 30px 40px;
+    min-height: 100%;
     .title{
       padding-bottom: 16px;
       border-bottom: 1px solid #e1e1e2;

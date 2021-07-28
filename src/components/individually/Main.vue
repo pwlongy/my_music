@@ -159,7 +159,7 @@ export default {
       // 右侧
       .ColRight{
         background: #fafafa;
-        height: 100%;
+        min-height: 100%;
       }
     }
   }

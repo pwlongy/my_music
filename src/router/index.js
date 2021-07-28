@@ -66,7 +66,20 @@ const routes = [
   },
   {
     path: "/video",
-    component: () => import("@/components/individually/Video/video.vue")
+    component: () => import("@/components/individually/Video/video.vue"),
+    children: [
+      {
+        path: "mv",
+        component: () => import("@/components/individually/Video/MV/MV.vue")
+      },
+      {
+        path: "shipin",
+        component: () => import("@/components/individually/Video/MV/shipin.vue")
+      },{
+        path: '',
+        redirect: "/video/shipin"
+      }
+    ]
   },
   {
     path: "/friend",
