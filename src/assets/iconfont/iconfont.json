@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "827649",
+      "name": "排列",
+      "font_class": "pailie",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "5849201",
+      "name": "专辑",
+      "font_class": "zhuanji",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "12025969",
+      "name": "列表式排列",
+      "font_class": "liebiaoshipailie",
+      "unicode": "e7a9",
+      "unicode_decimal": 59305
+    },
+    {
+      "icon_id": "15779744",
+      "name": "文件夹",
+      "font_class": "wenjianjia",
+      "unicode": "e70a",
+      "unicode_decimal": 59146
+    },
+    {
       "icon_id": "19954243",
       "name": "分 享",
       "font_class": "fenxiang2",

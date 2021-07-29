@@ -84,6 +84,10 @@ const routes = [
   {
     path: "/friend",
     component: () => import("@/components/individually/friend/friend.vue")
+  },
+  {
+    path: "/local",
+    component: () => import("@/components/individually/local/local.vue")
   }
 ]
 

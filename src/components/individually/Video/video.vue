@@ -49,6 +49,7 @@ export default {
     .el-menu {
       display: flex;
       justify-content: center;
+      margin-bottom: 15px;
     }
   }
 </style>
