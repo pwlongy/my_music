@@ -88,6 +88,10 @@ const routes = [
   {
     path: "/local",
     component: () => import("@/components/individually/local/local.vue")
+  },
+  {
+    path: "/download",
+    component: () => import("@/components/individually/Download/download.vue")
   }
 ]
 

@@ -7,7 +7,8 @@
         <i class="el-icon-plus"></i>
       </div>
       
-      <span><i class="iconfont icon-xunhuanbofang"></i>匹配音乐</span>
+      <span v-if="local"><i class="iconfont icon-xunhuanbofang"></i>匹配音乐</span>
+      <p v-else>存储目录：F\CloudMusic <span>打开目录</span></p>
       
       <el-input
         placeholder="搜索本地音乐"
@@ -21,6 +22,8 @@
       <table cellspacing="0">
         <tr>
           <td style="width:64px"></td>
+          <td style="width: 40px" :style="{display: (local ? 'none' : '' )}">
+          </td>
           <td style="width:514px">音乐标题</td>
           <td style="width:370px">歌手</td>
           <td style="width: 320px">专辑</td>
@@ -30,6 +33,9 @@
          
         <tr>
           <td>01</td>
+           <td :style="{display: (local ? 'none' : '' )}">
+            <i class="iconfont icon-xinaixin"></i>
+          </td>
           <td>越过山丘</td>
           <td>小鹿</td>
           <td>越过山丘</td>
@@ -38,6 +44,9 @@
         </tr>
         <tr>
           <td>01</td>
+          <td :style="{display: (local ? 'none' : '' )}">
+            <i class="iconfont icon-xinaixin active"></i>
+          </td>
           <td>越过山丘</td>
           <td>小鹿</td>
           <td>越过山丘</td>
@@ -46,6 +55,9 @@
         </tr>
         <tr>
           <td>01</td>
+           <td :style="{display: (local ? 'none' : '' )}">
+            <i class="iconfont icon-xinaixin"></i>
+          </td>
           <td>越过山丘</td>
           <td>小鹿</td>
           <td>越过山丘</td>
@@ -62,6 +74,21 @@ import { Input } from "element-ui"
 export default {
   components: {
     [Input.name]: Input
+  },
+  data(){
+    return{
+      input2: ""
+    }
+  },  
+  props: {
+    local: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+  },
+  mounted () {
+      console.log(this.local)
   }
 }
 </script>
@@ -71,6 +98,7 @@ export default {
     .top{
       display: flex;
       padding: 20px 40px;
+      position: relative;
       .play{
         width: 150px;
         height: 32px;
@@ -127,9 +155,21 @@ export default {
         }
       }
 
+      p{
+          color: #666;
+          width: 300px;
+          line-height: 32px;
+          span{
+            color: #0c73c2;
+            cursor: pointer;
+          }
+        }
+
       ::v-deep .el-input{
+        position: absolute;
+        top: 25px;
+        right: 50px;
         width: 220px;
-        margin-left: 1100px;
         input{
           border-radius: 16px;
           height: 32px;
@@ -148,6 +188,9 @@ export default {
           td{
             padding-left: 12px;
             text-align: left;
+          }
+          .active{
+            color: red;
           }
         }
         tr{

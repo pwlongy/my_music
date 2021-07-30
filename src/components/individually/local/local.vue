@@ -15,7 +15,7 @@
 
     </div>
 
-    <musicList></musicList>
+    <musicList :local="true"></musicList>
   </div>
 </template>
 
