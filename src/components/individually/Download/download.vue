@@ -9,7 +9,7 @@
       </div>
     </div>
 
-    <musicList :local="false"></musicList>
+    <musicList></musicList>
   </div>  
 </template>
 

@@ -173,7 +173,6 @@ export default {
         input{
           border-radius: 16px;
           height: 32px;
-          
         }
         i{
             line-height: 32px;

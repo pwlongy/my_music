@@ -96,6 +96,10 @@ const routes = [
   {
     path: "/radioStation",
     component: () => import("@/components/individually/radioStation/radioStation.vue")
+  },
+  {
+    path: "/collection",
+    component: () => import("@/components/individually/collection/collection.vue")
   }
 ]
 
