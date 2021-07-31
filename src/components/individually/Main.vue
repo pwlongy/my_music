@@ -82,13 +82,14 @@
               <template slot="title">
                 <span>创建的歌单</span>
               </template>
-              <el-submenu index="1-4">
+              <el-menu-item 
+                index="1-4"
+                route="/myLove">
                 <template slot="title">
                    <i class="iconfont icon-xihuan"></i>
                   <span>我喜欢的音乐</span>
                 </template>
-                <el-menu-item index="1-4-1">选项1</el-menu-item>
-              </el-submenu>
+              </el-menu-item>
             </el-submenu>
 
           </el-menu>   

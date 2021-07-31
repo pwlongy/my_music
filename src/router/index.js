@@ -100,6 +100,10 @@ const routes = [
   {
     path: "/collection",
     component: () => import("@/components/individually/collection/collection.vue")
+  },
+  {
+    path: "/myLove",
+    component: () => import("@/components/individually/creat/myLove.vue")
   }
 ]
 
