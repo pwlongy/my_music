@@ -103,7 +103,25 @@ const routes = [
   },
   {
     path: "/myLove",
-    component: () => import("@/components/individually/creat/myLove.vue")
+    component: () => import("@/components/individually/creat/myLove.vue"),
+    children: [
+      {
+        path: "",
+        redirect: "/mylove/songlist"
+      },
+      {
+        path: "songlist",
+        component: () => import("@/components/common/songlist/songList.vue")
+      },
+      {
+        path: "remarks",
+        component: () => import("@/components/common/songlist/remarks.vue")
+      },
+      {
+        path: "collection",
+        component: () => import("@/components/common/songlist/collection.vue")
+      }
+    ]
   }
 ]
 

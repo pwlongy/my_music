@@ -32,14 +32,38 @@
             </p>
           </div>
     </div>
+
+    <div class="main">
+      <el-menu 
+        :default-active="activeIndex" 
+        class="el-menu-demo" 
+        mode="horizontal" 
+        router
+        background-color= "#fafafa"
+        @select="handleSelect">
+        <el-menu-item index="1" route="/mylove/songlist">歌曲列表</el-menu-item>
+        <el-menu-item index="2" route="/mylove/remarks">评论<i>(0)</i></el-menu-item>
+        <el-menu-item index="3" route="/mylove/collection">收藏者</el-menu-item>
+      </el-menu>
+
+      <router-view></router-view>
+    </div>
+    
   </div>
 </template>
 
 <script>
-import { Avatar } from "element-ui"
+import { Avatar, Menu, MenuItem } from "element-ui"
 export default {
+  data(){
+    return {
+      activeIndex: "1"
+    }
+  },
   components: {
-    [Avatar.name]: Avatar
+    [Avatar.name]: Avatar,
+    [Menu.name]: Menu,
+    [MenuItem.name]: MenuItem
   }
 }
 </script>
@@ -172,6 +196,16 @@ export default {
         }
       }
 
+    }
+
+    .main{
+      .el-menu{
+        padding-left: 88px;
+
+        .el-menu-item{
+          font-size: 18px;
+        }
+      }
     }
   }
 </style>
