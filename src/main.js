@@ -5,6 +5,12 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+import {
+  MessageBox,
+  Message
+} from "element-ui"
+Vue.prototype.$confirm = MessageBox
+Vue.prototype.$message = Message
 // 引入 iconfont
 import "@/assets/iconfont/iconfont.css"
 

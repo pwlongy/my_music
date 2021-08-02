@@ -94,6 +94,10 @@ const routes = [
     component: () => import("@/components/individually/Download/download.vue")
   },
   {
+    path: "/cloud",
+    component: () => import("@/components/individually/cloud/cloud.vue")
+  },
+  {
     path: "/radioStation",
     component: () => import("@/components/individually/radioStation/radioStation.vue")
   },

@@ -19,23 +19,81 @@
     </el-input>
 
     <div class="login">
-
+      <el-avatar :size="35" src=""></el-avatar>
+      <u @click="dialogVisible = true">未登录<i class="el-icon-caret-bottom"></i></u>
     </div>
+
+
+    <!-- 弹出框 -->
+    <el-dialog
+      :visible.sync="dialogVisible">
+
+      <div class="main">
+        <img src="../../assets/images/login_03.jpg">
+        <div class="input">
+          <el-input 
+            placeholder="请输入手机号" 
+            v-model="username" 
+            prefix-icon="el-icon-user"></el-input>
+          <el-input 
+            placeholder="请输入密码" 
+            v-model="password" 
+            show-password
+            prefix-icon="el-icon-lock"></el-input>
+        </div>
+
+        <el-checkbox label="自动登录" v-model="login"></el-checkbox>
+
+        <el-button>登录</el-button>
+
+        <a>注册</a>
+
+        <div class="loginI">
+          <i class="iconfont icon-weixin-copy"></i>
+          <i class="iconfont icon-qq"></i>
+          <i class="iconfont icon-weibo"></i>
+          <i class="iconfont icon-zhifubao"></i>
+        </div>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import { Button, Input } from "element-ui"
+import { 
+  Avatar,
+  Button, 
+  Input, 
+  Dialog,
+  Checkbox
+} from "element-ui"
 export default{
   components: {
     [Input.name]: Input,
-    [Button.name]: Button
+    [Button.name]: Button,
+    [Avatar.name]: Avatar,
+    [Dialog.name]: Dialog,
+    [Checkbox.name]: Checkbox
   },
   data(){
     return{
       // 输入框绑定数据
-      input: ""
+      input: "",
+      // 弹出框的显示与隐藏
+      dialogVisible: false,
+      // 用户名
+      username: "",
+      // 密码
+      password: "",
+      // 自动登录
+      login: true
     }
+  },
+  mounted () {
+  },
+  methods: {
+        
   }
 }
 </script>
@@ -44,6 +102,7 @@ export default{
   .Top{
     display: flex;
     align-items: center;
+    position: relative;
     // logo
     .iconfont{
       color: #C62F2F;
@@ -91,7 +150,122 @@ export default{
       border-radius: 15px;
     }
 
-
+    // login
+    .login{
+      display: flex;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 100px;
+      .el-avatar{
+        cursor: pointer;
+      }
+      u{
+        display: block;
+        font-size: 14px;
+        margin-left: 10px;
+        color: #edbebe;
+        cursor: pointer;
+        i{
+          margin-left: 10px;
+        }
+      }
+      u:hover{
+        color: #fff;
+      }
+    }
    
+
+   ::v-deep .el-dialog{
+     width: 437px;
+     height: 662px;
+      background: #fafafa;
+     .main{
+       height: 600px;
+       padding: 0 35px;
+       img{
+         height: 105px;
+         width: 100%;
+         margin: 50px 0;
+       }
+       &>.input{
+         height: 100px;
+         display: flex;
+         flex-direction: column;
+         .el-input{
+           width: 100%;
+           flex: 1;
+            input{
+              display: block;
+              width: 100%;
+              height: 100%;
+              border: none;
+              border-radius: 0;
+              border: 1px solid #d8d8d8
+            }
+            .el-input__prefix{
+              line-height: 50px;
+              i{
+                font-size: 18px;
+              }
+            }
+          }
+          .el-input:nth-child(1){
+            input{
+              border-radius: 5px 5px 0 0;
+            }
+          }
+          .el-input:nth-child(2){
+            input{
+              border-radius: 0 0 5px 5px;
+              border-top: none  ;
+            }
+            .el-input__suffix{
+              line-height: 50px;
+            }
+          }
+       }
+
+      &>.el-button{
+        display: block;
+        width: 100%;
+        height: 50px;
+        color: #fff;
+        background: #ea4848;
+      }
+      .el-button:hover{
+        background: #a82828;
+      }
+      &>a{
+        display: block;
+        height: 50px;
+        text-align: center;
+        width: 100%;
+        line-height: 50px;
+        cursor: pointer;
+      }
+      .loginI{
+        display: flex;
+        justify-content: space-between;
+        height: 44px;
+        .iconfont{
+          font-size: 36px;
+          cursor: pointer;
+        }
+        .iconfont:nth-child(1){
+          color: #67b633;
+        }
+        .iconfont:nth-child(2){
+          color: #34a0df;
+        }
+        .iconfont:nth-child(3){
+          color: #ea4a4a;
+        }
+        .iconfont:nth-child(4){
+          color: #34a0df;
+        }
+      }
+    }
+   }
   }
 </style>
