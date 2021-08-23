@@ -1,6 +1,6 @@
 <template>
 
-  <div class="comments" v-if="list.length !== 0">
+  <div class="comments">
     {{list}}
     <ul>
       <li v-for="(item, index) in list" :key="index">
@@ -40,13 +40,21 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      comments: []  
+    }
+  },
   components: {
     [Avatar.name]: Avatar
   },
   mounted () {
-    setTimeout(() => {
+    this.$nextTick(() => {
+      console.log(this.list.length)
       console.log(this.list)
-    },1000)
+    })
+    
+    
   }
 }
 </script>
