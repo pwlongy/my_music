@@ -6,13 +6,13 @@
           <div class="right"><i class="el-icon-folder-add"> </i>全部收藏</div>
         </li>
         <ol>
-          <li>
-            <h2>01</h2>
-            <img src="">
-            <u>火光<i></i></u>
-            <span>焦迈奇</span>
-            <b>火光<i>(电视剧《心跳源计划》插曲)</i></b>
-            <h3>04:11</h3>
+          <li v-for="(item, index) in newSonger" :key="index">
+            <h2 v-text="index+1"></h2>
+            <img v-lazy="item.picUrl">
+            <u v-text="item.name">火光<i></i></u>
+            <span v-text="item.song.artists[0].name"></span>
+            <b>{{item.song.name}}<i>{{item.song.alias[0]}}</i></b>
+            <h3>{{item.song.mMusic.playTime | showDate}}</h3>
           </li>
         </ol>
       </ul>
@@ -24,14 +24,35 @@ import {
 
 } from "element-ui"
 
+import {getSongerNow} from "utils/findMusic.js"
+import {formatDate} from "@/common/time.js"
 export default {
-
+  data () {
+    return {
+      newSonger: []  
+    }
+  },
+  mounted () {
+    getSongerNow(100).then(res => {
+      this.newSonger = res.data.result
+    })
+  },
+  filters: {
+    showDate(value){
+      const date = new Date(value)
+      return formatDate(date, 'mm:ss')
+    }
+  },
+  computed: {
+ 
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   .newSong{
     padding-top: 14px;
+    margin-bottom: 30px;
     ul{
       border: 1px solid #ededed;
       &>li:nth-child(1){
@@ -86,7 +107,7 @@ export default {
           }
           u{
             width: 500px;
-            padding-left: 6px;
+            padding-left: 20px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap; 
@@ -100,6 +121,11 @@ export default {
             width: 330px;
             padding-left: 28px;
             color: #666666;
+            overflow: hidden;
+            //超出之后，显示的形式，这儿是省略号
+            text-overflow: ellipsis;
+            //不换行
+            white-space: nowrap;
             i{
               margin-left: 6px;
               color: #888888;

@@ -126,6 +126,36 @@ const routes = [
         component: () => import("@/components/common/songlist/collection.vue")
       }
     ]
+  },
+  {
+    path: '/recommendeSongList/:id',
+    component: () => import("@/components/individually/RecommendedSongList/RecommendedSongList.vue"),
+    children: [
+      {
+        path: "",
+        redirect: "/recommendeSongList/:id/songlist"
+      },
+      {
+        path: "songlist",
+        component: () => import("@/components/common/songlist/songList.vue")
+      },
+      {
+        path: "remarks",
+        component: () => import("@/components/common/songlist/remarks.vue")
+      },
+      {
+        path: "collection",
+        component: () => import("@/components/common/songlist/collection.vue")
+      },
+    ]
+  },
+  {
+    path: "/everyday",
+    component: () => import("@/components/individually/findMusic/everyDay.vue")
+  },
+  {
+    path: "/songvideo/:id",
+    component: () => import("views/video/video.vue")
   }
 ]
 

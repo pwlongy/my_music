@@ -1,12 +1,14 @@
 <template>
-  <div class="comments">
+
+  <div class="comments" v-if="list.length !== 0">
+    {{list}}
     <ul>
-      <li>
-        <el-avatar :size="45" src=""></el-avatar>
+      <li v-for="(item, index) in list" :key="index">
+        <el-avatar :size="45" v-lazy="item.user.avatarUrl"></el-avatar>
         <div class="right">
-          <span><i>年年年糕：</i>去年今日此门中，人面桃花相映红，人面不知何处去，挑花依旧笑春风。</span>
-          <div class="pin" v-if="false">
-            <span>@pengwei: <i>去年今日此门中，人面桃花相映红，人面不知何处去，挑花依旧笑春风。</i></span>
+          <span><i >{{item.user.nickname}}：</i>{{item.content}}</span>
+          <div class="pin" v-if="item.beReplied">
+            <span>@{{item.beReplied.user.nickname}}: <i>{{item.beReplied.content}}</i></span>
           </div>
           <div class="bottom">
             <u>2016年10月14日 10：00</u>
@@ -27,9 +29,24 @@
 import {
   Avatar
 } from "element-ui"
+
 export default {
+  props: {
+    list: {
+      type: Array,
+      required: true,
+      default() {
+        return []
+      }
+    }
+  },
   components: {
     [Avatar.name]: Avatar
+  },
+  mounted () {
+    setTimeout(() => {
+      console.log(this.list)
+    },1000)
   }
 }
 </script>

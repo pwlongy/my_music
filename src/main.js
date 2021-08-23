@@ -5,6 +5,10 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+// 图片懒加载
+import lazy from "vue-lazyload"
+Vue.use(lazy)
+
 import {
   MessageBox,
   Message

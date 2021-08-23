@@ -1,21 +1,21 @@
 <template>
-  <div class="songList">
+  <div class="songList" v-if="Object.keys(Songplaylist).length !== 0">
     <div class="top">
-      <img src="">
+      <img v-lazy="Songplaylist.coverImgUrl">
       <div class="message">
-        <span><i>歌单</i>我喜欢的音乐</span>
+        <span><i>歌单</i>{{Songplaylist.name}}</span>
         <div class="avatar">
-          <el-avatar :size="40" src=""></el-avatar>
-          <u>--何须问</u>
-          <i>2017-10-14创建</i>
+          <el-avatar :size="40" :src="Songplaylist.creator.avatarUrl"></el-avatar>
+          <u v-text="Songplaylist.creator.nickname"></u>
+          <i>{{Songplaylist.createTime | showDate}} 创建</i>
         </div>
         <div class="playBox">
           <div class="play">
             <span><i class="el-icon-video-play"></i>播放全部</span>
             <u class="el-icon-plus"></u>
           </div>
-          <span><i class="el-icon-folder-add"></i>收藏(0)</span>
-          <u><i class="iconfont icon-fenxiang2"></i>分享</u>
+          <span><i class="el-icon-folder-add"></i>收藏({{Songplaylist.subscribedCount}})</span>
+          <u><i class="iconfont icon-fenxiang2"></i>分享({{Songplaylist.cloudTrackCount}})</u>
           <p><i class="iconfont icon-menu_download-copy"></i>下载</p>
        </div>
       </div>
@@ -24,11 +24,11 @@
           <div class="playback">
             <p>
               <i>歌曲数</i>
-              <u>103</u>
+              <u>{{Songplaylist.trackCount}}</u>
             </p>
             <p>
               <i>播放数</i>
-              <u>1179</u>
+              <u>{{Math.trunc(Songplaylist.playCount/10000)}}万</u>
             </p>
           </div>
     </div>
@@ -41,9 +41,9 @@
         router
         background-color= "#fafafa"
         @select="handleSelect">
-        <el-menu-item index="1" route="/mylove/songlist">歌曲列表</el-menu-item>
-        <el-menu-item index="2" route="/mylove/remarks">评论<i>(0)</i></el-menu-item>
-        <el-menu-item index="3" route="/mylove/collection">收藏者</el-menu-item>
+        <el-menu-item index="1" :route="'/recommendeSongList/'+Songplaylist.id+'/songlist'">歌曲列表</el-menu-item>
+        <el-menu-item index="2" :route="'/recommendeSongList/'+Songplaylist.id+'/remarks'">评论<i>({{Songplaylist.commentCount}})</i></el-menu-item>
+        <el-menu-item index="3" :route="'/recommendeSongList/'+Songplaylist.id+'/collection'">收藏者</el-menu-item>
       </el-menu>
 
       <router-view></router-view>
@@ -54,16 +54,44 @@
 
 <script>
 import { Avatar, Menu, MenuItem } from "element-ui"
+import {formatDate} from "@/common/time.js"
 export default {
   data(){
     return {
       activeIndex: "1"
     }
   },
+  props: {
+    Songplaylist: {
+      type: Object,
+      default() {
+        return {
+          name: "hello"
+        }
+      }
+    }
+  },
+  created () {
+  },
   components: {
     [Avatar.name]: Avatar,
     [Menu.name]: Menu,
     [MenuItem.name]: MenuItem
+  },
+  filters: {
+    showDate(value){
+      const date = new Date(value)
+      return formatDate(date, 'yyyy-MM-dd')
+    },
+    // Number(value){
+    //   console.log((value/10000).parseInt())
+    //   return (value/10000).parseInt() 
+    // }
+  },
+  methods: {
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    }
   }
 }
 </script>
@@ -73,6 +101,7 @@ export default {
     .top{
       padding: 38px;
       display: flex;
+      position: relative;
       img{
         display: block;
         width: 247px;
@@ -157,13 +186,12 @@ export default {
             display: block;
             margin-left: 14px;
             border:1px solid #e1e1e2;
-            width: 100px;
             height: 30px;
             border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #e1e1e2;
+            padding: 5px 10px;
             i{
               margin-right: 8px;
             }
@@ -176,7 +204,7 @@ export default {
         }
       }
       .playback{
-        width: 120px;
+        width: 200px;
         height: 40px;
         position: absolute;
         top: 42px;
@@ -190,6 +218,8 @@ export default {
           border-right: 1px solid #e1e1e2;
           padding-right: 10px;
           font-weight: 600;
+          display: flex;
+          flex-direction: column;
         }
         p:last-child{
           border: none;

@@ -6,81 +6,32 @@
      </div>
     
      <div class="listGrid" v-if="flex">
-
-       <div 
+       <div
+        @click="ListItem(item.id)"
         class="listItem"
-        :style="{'width': width, 'height': height}">
+        :style="{'width': width, 'height': height}"
+        v-for="(item, index) in list" :key="index">
          <img 
-          src="" 
+          v-lazy="item.sPicUrl || item.picUrl" 
           :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-       <div 
-        class="listItem"
-        :style="{'width': width, 'height': height}">
-         <img 
-          src="" 
-          :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-       <div 
-        class="listItem"
-        :style="{'width': width, 'height': height}">
-         <img 
-          src="" 
-          :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-       <div 
-        class="listItem"
-        :style="{'width': width, 'height': height}">
-         <img 
-          src="" 
-          :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-       <div 
-        class="listItem"
-        :style="{'width': width, 'height': height}">
-         <img 
-          src="" 
-          :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-       <div 
-        class="listItem"
-        :style="{'width': width, 'height': height}">
-         <img 
-          src="" 
-          :style="{'height' : imgheight}"/>
-         <span></span>
-       </div>
-      
-      
+         <span>
+           <i v-text="item.name"></i>
+           <i v-text="item.artistName"></i>
+         </span>
+       </div>  
      </div>
 
      <div class="fine" v-else>
       <div class="fineItem">
-        <div class="Item">
-          <img src=""/>
+        <div class="Item" v-for= "(item, index) in list" :key="index">
+          <img :src="item.picUrl"/>
           <div class="right">
-            <h1>广播剧《青梅屿》</h1>
-            <span>小麻雀与大狼狗的夏日恋爱物语</span>
-            <u><i class=""></i>青梅屿</u>
-            <i>￥ 12.9</i>
+            <h1 v-text="item.name"></h1>
+            <span v-text="item.rcmdText"></span>
+            <u><i class=""></i>{{item.lastProgramName}}</u>
+            <i>￥ {{item.originalPrice/100}}</i>
           </div>
         </div>
-
-        <div class="Item">
-          <img src=""/>
-          <div class="right">
-            <h1>广播剧《青梅屿》</h1>
-            <span>小麻雀与大狼狗的夏日恋爱物语</span>
-            <u><i class="el-icon-caret-right"></i>青梅屿 第12集</u>
-            <i>￥ 12.9</i>
-          </div>
-        </div>
-
       </div>
      </div>
   </div>  
@@ -134,19 +85,32 @@ export default {
       type: String,
       required: false,
       default: "254px"
+    },
+    // 表单信息
+    list: {
+      type: Array,
+      required: true,
+      default() {
+        return []
+      }
     }
 
   },
   computed: {
   },
   mounted () {
-    console.log(this.width,this.height)
+  },
+  methods: {
+    ListItem(id){
+      this.$emit("itemlist", id)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .list{
+    margin-top: 26px;
     .title{
       height: 50px;
       border-bottom: 1px solid #e1e1e2;
@@ -170,19 +134,21 @@ export default {
       .listItem{
         margin: 0 7px ; 
         margin-bottom: 20px;
-        background: lightgreen;
+        cursor: pointer;
         img{
           display: block;
           width: 100%;
           height: 200px;
-          background: lightsalmon;
         }
         span{
           display: block;
           margin-top: 10px;
           width: 100%;
           height: 44px;
-          background: lightseagreen;
+          i{
+            display: block;
+            font-size: 16px;
+          }
         }
       }
     }
@@ -190,15 +156,18 @@ export default {
     .fine{
       padding-top: 15px;
       .fineItem{
-        border-bottom: 1px solid #e1e1e2;
         padding-bottom: 10px;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         .Item{
-          height: 150px;
-          flex: 1;
+          width: 624px;
+          height: 160px;
           display: flex;
+          border-bottom: 1px solid #e1e1e2;
+          margin: 10px 0;
           img{
-            width: 100%;
+            width: 150px;
             height: 150px;
             display: block;
           }

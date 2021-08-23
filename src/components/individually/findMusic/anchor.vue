@@ -4,9 +4,9 @@
     <el-carousel
       :interval="4000" 
       type="card" 
-      height="300px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <h3 class="medium">{{ item }}</h3>
+      height="250px">
+      <el-carousel-item v-for="(item, index) in banner" :key="index">
+        <img :src="item.pic"/>
       </el-carousel-item>
     </el-carousel>
     <!-- 轮播图 -->
@@ -15,9 +15,10 @@
     <!-- 列表 -->
     <list title="听听" width="200px" height="254px"></list>
 
-    <list title="付费精品" :flex="false" ></list>
+    <list title="付费精品" :flex="false" :list="paygift"></list>
 
-    <list title="电台个性推荐" width="200px" height="254px"></list>
+    <list title="电台个性推荐" width="200px" height="254px" imgheight="200px" :list="recommend"></list>
+
     <list title="有声书" width="200px" height="254px"></list>
     <list title="原创翻唱" width="200px" height="254px"></list>
     <list title="音乐推荐" width="200px" height="254px"></list>
@@ -33,12 +34,37 @@ import {
   CarouselItem
 } from "element-ui"
 
+import {djBanner, djrecommend, djpaygift} from "utils/findMusic.js"
 export default {
   components: {
     [Carousel.name]: Carousel,
     [CarouselItem.name]: CarouselItem,
     list: () => import("@/components/common/list.vue")
   },
+  data () {
+    return {
+      // 轮播图
+      banner: [] ,
+      // 电台个性推荐
+      recommend: [],
+      // 付费精品
+      paygift: []
+    }
+  },
+  mounted () {
+    // 获取banner
+    djBanner().then(res => {
+      this.banner = res.data.data
+    }),
+    // 电台个性推荐
+    djrecommend().then(res => {
+      this.recommend = res.data.data
+    }),
+    // 付费精品
+    djpaygift().then(res => {
+      this.paygift = res.data.data.list
+    })
+  } 
 
 }
 </script>
@@ -46,6 +72,12 @@ export default {
 <style lang="scss" scoped>
   .anchor{
     padding-top: 20px;
+    .el-carousel__item{
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
     .el-carousel__item:nth-child(2n) {
       background-color: #99a9bf;
     }

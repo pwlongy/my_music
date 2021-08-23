@@ -7,7 +7,7 @@
       <el-main>
         <Main></Main>
       </el-main>
-      <el-footer>
+      <el-footer v-show="isfooterShow">
         <Footer></Footer>
       </el-footer>
     </el-container>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-
+  import {mapState} from "vuex"
   import {
     Container,
     Header,
@@ -26,9 +26,6 @@
     Row
   } from "element-ui"
   export default{
-    mounted () {
-
-    },
     components: {
       [Container.name]: Container,
       [Header.name]: Header,
@@ -39,6 +36,9 @@
       Top: () => import("@/components/individually/Top.vue"),
       Main: () => import("@/components/individually/Main.vue"),
       Footer: () => import("@/components/individually/Footer.vue")
+    },
+    computed: {
+      ...mapState('markapp',['isfooterShow'])
     }
   }
 </script>

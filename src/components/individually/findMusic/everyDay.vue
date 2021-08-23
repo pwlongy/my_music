@@ -1,5 +1,5 @@
 <template>
-  <div class="songlist">
+  <div class="everyDay">
     <table cellspacing="0">
       <tr>
         <td style="width: 64px"></td>
@@ -9,12 +9,10 @@
         <td style="width: 368px">专辑</td>
         <td >时长</td>
       </tr>
-      <tr v-for="(item, index) in tracks" :key="index">
+      <tr v-for="(item, index) in list" :key="index">
         <td v-text="index+1"></td> 
         <td>
           <i class="iconfont " :class="[like?'icon-aixin_shixin':'icon-xinaixin']"></i>
-          <i v-if="download" class="iconfont icon-menu_download-copy"></i>
-          <i v-else class="iconfont icon-dui"></i>
         </td>
         <td>{{item.name}}<i>{{item.alia[0]}}</i></td>
         <td v-text="item.ar[0].name"></td>
@@ -26,37 +24,35 @@
 </template>
 
 <script>
+import {recomSong} from "utils/findMusic.js"
 
-import {playlist} from "utils/findMusic.js"
 
 export default {
-  data () { 
+  mounted () {
+    recomSong().then(res => {
+      this.list = res.data.data.dailySongs
+    })
+  },
+  components: {
+  },
+  data () {
     return {
-      // 是否已下载
-      download: true,
-      // 是否为 喜欢
-      like: true,
-      // 歌单id
-      id: null,
-      // 歌曲列表
-      tracks: []
+      list: [],
+      like: false,
     }
   },
-  mounted () {
-    this.id = this.$route.params.id
-
-    // 获取歌单信息
-    playlist(this.id).then(res =>{
-      this.tracks = res.data.playlist.tracks
-    })
+  computed: {
+    
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .songlist{
-    table{
+  .everyDay{
+    padding: 20px 30px;
+     table{
       width: 100%;
+      border: 1px solid #bdbdbd;
       tr{
         height: 36px;
         td{

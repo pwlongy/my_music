@@ -33,7 +33,6 @@
       </div>
       
       <i class="iconfont icon-gedan"></i>
-
     </div>
   </div>  
 </template>

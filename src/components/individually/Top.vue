@@ -19,8 +19,9 @@
     </el-input>
 
     <div class="login">
-      <el-avatar :size="35" src=""></el-avatar>
+      <el-avatar :size="35" ></el-avatar>
       <u @click="dialogVisible = true">未登录<i class="el-icon-caret-bottom"></i></u>
+      <!-- <u v-else>{{userInfo.nickname}}<i class="el-icon-caret-bottom"></i></u> -->
     </div>
 
 
@@ -33,7 +34,7 @@
         <div class="input">
           <el-input 
             placeholder="请输入手机号" 
-            v-model="username" 
+            v-model="phone" 
             prefix-icon="el-icon-user"></el-input>
           <el-input 
             placeholder="请输入密码" 
@@ -42,9 +43,9 @@
             prefix-icon="el-icon-lock"></el-input>
         </div>
 
-        <el-checkbox label="自动登录" v-model="login"></el-checkbox>
-
-        <el-button>登录</el-button>
+        <el-checkbox label="自动登录" v-model="login" ></el-checkbox>
+        <span class="span" v-show="isspan"><i class="el-icon-warning"></i>手机或密码错误</span>
+        <el-button @click="Getlogin">登录</el-button>
 
         <a>注册</a>
 
@@ -61,6 +62,7 @@
 </template>
 
 <script>
+import {cellphone,} from "utils/top.js"
 import { 
   Avatar,
   Button, 
@@ -83,17 +85,40 @@ export default{
       // 弹出框的显示与隐藏
       dialogVisible: false,
       // 用户名
-      username: "",
+      phone: "",
       // 密码
       password: "",
       // 自动登录
-      login: true
+      login: true,
+      // 登录注册失败
+      isspan: false,
+      // 用户id
+      uid: ""
+      // 用户信息
     }
   },
   mounted () {
   },
   methods: {
+    Getlogin(){
+      // 获取用户名以及密码
+      cellphone(this.phone,this.password).then(res => {
+        console.log(res)
+        this.phone = ""
+        this.password = ""
         
+        if(res.data.code === 200){
+          this.dialogVisible = false
+          this.isspan = false
+          // 将 cookie 信息保存在 session 中
+          localStorage.setItem("token",res.data.token)
+          // 保存 用户 id
+          this.uid = res.data.profile.userId
+        }else{
+          this.isspan = true
+        }
+      })
+    }
   }
 }
 </script>
@@ -183,6 +208,11 @@ export default{
      .main{
        height: 600px;
        padding: 0 35px;
+
+       .span{
+         color: rgb(248, 66, 66);
+         float: right;
+       }
        img{
          height: 105px;
          width: 100%;
