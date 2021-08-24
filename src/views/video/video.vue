@@ -5,15 +5,13 @@
           <!-- 标题 -->
           <Title></Title>
           <!-- 评论 -->
-          <videoComment></videoComment>
+          <videoComment class="comment"></videoComment>
         </div>
         <div class="right">
           <!-- 介绍 -->
-          <div>
-
-          </div>
+          <introduce class="introduce"></introduce>
           <!-- 相关推荐 -->
-
+          <recommend></recommend>
         </div>
       </div>
   </div>
@@ -22,6 +20,8 @@
 <script>
 const Title = () => import("./videoChild/videoTitle.vue")
 const videoComment = () => import("./videoChild/videoComments.vue")
+const recommend = () => import("./videoChild/videorecommend.vue")
+const introduce = () => import("./videoChild/videointroduce.vue")
 import {
 
 } from "element-ui"
@@ -31,7 +31,9 @@ import {mapMutations} from "vuex"
 export default {
   components: {
     Title,
-    videoComment
+    videoComment,
+    introduce,
+    recommend
   },
   methods: {
     ...mapMutations("markapp", ['updataFooterShow'])
@@ -50,7 +52,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    min-height: 100%;
     z-index: 100;
     background: #fff;
     width: 100%;
@@ -63,10 +65,15 @@ export default {
       justify-content: space-between;
       .left{
         width: 850px;
+        .comment{
+          margin-top: 70px;
+        }
       }
       .right{
         width: 320px;
-        background: black;
+        .introduce{
+          margin-bottom: 80px;
+        }
       }
     }
   }

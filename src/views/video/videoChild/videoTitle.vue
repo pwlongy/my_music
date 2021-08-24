@@ -2,26 +2,45 @@
   <div class="videoTitle">
     <!-- 标题 -->
     <div class="title">
-      <i class="el-icon-arrow-left"></i>
+      <i class="el-icon-arrow-left" @click="$router.back()"></i>
       <div>MV</div>
-      <p>《超级面对面》第240期</p>
-      <u>毛不易</u>
+      <p>{{detail.name}}</p>
+      <u>{{detail.artistName}}</u>
     </div>
     <!-- video -->
-    <video width="100%" height="538" controls="controls"></video>
+    <video width="100%" height="538" controls="controls" :src="url"></video>
     <!-- 操作 -->
     <div class="Operation">
       <p><i class="iconfont icon-good"></i>赞(1000000)</p>
-      <p><i class="el-icon-folder-add"></i>收藏(1000000)</p>
-      <p><i class="iconfont icon-fenxiang2"></i>分享(1000000)</p>
+      <p><i class="el-icon-folder-add"></i>收藏({{detail.subCount}})</p>
+      <p><i class="iconfont icon-fenxiang2"></i>分享({{detail.shareCount}})</p>
       <p><i class="iconfont icon-menu_download-copy"></i>下载MV</p>
     </div>
   </div>
 </template>
 
 <script>
+import {mvUrl, mvdetail} from 'utils/video.js'
+
 export default {
-  
+  data () {
+    return {
+      id: null,
+      url: '' ,
+      detail: {}
+    }
+  },
+  mounted () {
+    this.id = this.$route.params.id
+    mvUrl(this.id).then(res => {
+      console.log(res)
+      this.url = res.data.data.url
+    })
+    
+    mvdetail(this.id).then(res => {
+      this.detail = res.data.data
+    })
+  }
 }
 </script>
 
@@ -56,6 +75,7 @@ export default {
 
     video{
       margin-bottom: 16px;
+      background:black;
     }
     .Operation{
       display: flex;

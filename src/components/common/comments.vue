@@ -1,19 +1,18 @@
 <template>
 
-  <div class="comments">
-    {{list}}
+  <div class="comments" v-if="list.length !== 0">
     <ul>
       <li v-for="(item, index) in list" :key="index">
-        <el-avatar :size="45" v-lazy="item.user.avatarUrl"></el-avatar>
+        <el-avatar :size="45" :src="item.user.avatarUrl"></el-avatar>
         <div class="right">
-          <span><i >{{item.user.nickname}}：</i>{{item.content}}</span>
-          <div class="pin" v-if="item.beReplied">
-            <span>@{{item.beReplied.user.nickname}}: <i>{{item.beReplied.content}}</i></span>
+          <span><i>{{item.user.nickname}}：</i>{{item.content}}</span>
+          <div class="pin" v-if="item.beReplied.length !== 0">
+            <span>@{{item.beReplied[0].user.nickname}}: <i>{{item.beReplied[0].content}}</i></span>
           </div>
           <div class="bottom">
-            <u>2016年10月14日 10：00</u>
+            <u>{{item.time | showtime}}</u>
             <div>
-              <span><i class="iconfont icon-good"></i>(855)</span>
+              <span><i class="iconfont icon-good"></i>({{item.likedCount}})</span>
               <span>分享</span>
               <span>回复</span>
             </div>
@@ -26,6 +25,8 @@
 </template>
 
 <script>
+import {formatDate} from  '@/common/time.js'
+// import {good} from "utils/finMusic.js"
 import {
   Avatar
 } from "element-ui"
@@ -42,19 +43,30 @@ export default {
   },
   data () {
     return {
-      comments: []  
+      id: null ,
+      // 是否点赞
+      t: false
     }
   },
   components: {
     [Avatar.name]: Avatar
   },
+  filters: {
+    showtime(value){
+      let time = new Date(value)
+      return formatDate(time, 'yyyy-MM-dd hh:mm')
+    }
+  },
   mounted () {
-    this.$nextTick(() => {
-      console.log(this.list.length)
-      console.log(this.list)
-    })
-    
-    
+    this.id = this.$route.params.id
+    console.log(this.list)
+  },
+  methods: {
+    // goodClick(){
+
+    //   console.log("点赞")
+    //   good()
+    // }
   }
 }
 </script>
@@ -72,6 +84,7 @@ export default {
         }
         .right{
           flex: 1;
+          padding-top: 20px;
           span{
             display: block;
             margin-bottom: 16px;
@@ -111,6 +124,9 @@ export default {
                 i{
                   color: #888;
                 }
+              }
+              span:last-child{
+                border: none;
               }
             }
           }

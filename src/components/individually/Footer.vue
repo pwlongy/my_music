@@ -3,7 +3,10 @@
     <!-- 播放按钮 -->
     <div class="play">
       <span><i class="iconfont icon-shangyishou"></i></span>
-      <span><i class="iconfont icon-zanting"></i></span>
+      <span @click="playMusic">
+        <i class="iconfont icon-zanting" v-if="isplay"></i>
+        <i class="iconfont icon-bofang" v-else></i>
+      </span>
       <span><i class="iconfont icon-xiayishou"></i></span>
     </div>
     <!-- 进度条 -->
@@ -14,7 +17,7 @@
       :show-tooltip= "false"
       >
       </el-slider>
-      <span>03:54</span>
+      <span>{{}}</span>
     </div>
 
     <!-- 其他 -->
@@ -34,6 +37,8 @@
       
       <i class="iconfont icon-gedan"></i>
     </div>
+    <audio controls="controls" height="100" width="100" ref="audio" class="audio" autoplay> 
+    </audio>
   </div>  
 </template>
 
@@ -41,6 +46,8 @@
 import {
   Slider
 } from "element-ui"
+
+import {formatDate} from "@/common/time.js"
 export default {
   components: {
     [Slider.name]: Slider
@@ -48,9 +55,50 @@ export default {
   data() {
     return {
       // 进度条
-      value: 100,
+      value: 0,
       // 音量
-      value1: 50
+      value1: 50,
+      // 播放暂停的显示有隐藏
+      isplay: true,
+      // 控制 进度条的暂停与开始
+      isStart: false,
+      // 
+      mytime: null
+    }
+  },
+  mounted () {
+    this.$bus.$on("sendUrl", url => {
+      this.$refs.audio.src = url
+      this.isMusicPlay()
+    })
+  },
+  methods: {
+    playMusic(){
+      this.isplay = !this.isplay
+      if(this.isplay){
+        this.$refs.audio.play()
+
+      }else{
+        this.$refs.audio.pause()
+      }
+    },
+    // 判断 音乐是否在播放
+    isMusicPlay(){
+      if(this.$refs.audio.paused){
+        this.mytime = setInterval(()=>{
+          if(this.value >= 100){
+            clearInterval(this.mytime)
+            this.mytime = null
+          }
+          this.value++
+        },1000)
+      }
+    }
+  },
+  filters: {
+    showTime(value){
+      let time = new Date(value)
+      return formatDate(time, 'mm:ss')
     }
   }
 }
@@ -177,6 +225,10 @@ export default {
         
       }
       
+    }
+
+    .audio{
+      display: none;
     }
   }
 </style>

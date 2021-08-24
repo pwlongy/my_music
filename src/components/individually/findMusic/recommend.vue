@@ -5,8 +5,7 @@
     :interval="6000" 
     type="card" 
     height="250px"
-    loop
-    >
+    loop>
     <el-carousel-item v-for="(item,index) in banners" :key="index">
       <img v-lazy="item.imageUrl">  
       <span>新歌首发</span>

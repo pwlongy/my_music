@@ -18,7 +18,7 @@ Vue.prototype.$message = Message
 // 引入 iconfont
 import "@/assets/iconfont/iconfont.css"
 
-// 引入 swiper 样式
+Vue.prototype.$bus = new Vue()
 
 new Vue({
   router,

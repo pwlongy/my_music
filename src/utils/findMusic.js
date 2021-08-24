@@ -86,7 +86,30 @@ export function getsubscribers(id){
   })
 }
 
+// 为评论信息点赞
+export function good(id,cid,t,type){
+  return request({
+    url: '/comment/like',
+    method: 'get',
+    params: {
+      id,
+      cid,
+      t,
+      type
+    }
+  })
+}
 
+// 获取 音乐 url 地址
+export function songurl(id){
+  return request({
+    url: '/song/url',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
 
 
 
@@ -116,5 +139,27 @@ export function djpaygift(){
     params: {
       limit : 4
     }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 排行榜
+export function toplist(){
+  return request({
+    url: '/toplist/detail',
+    method: 'get',
   })
 }

@@ -9,7 +9,7 @@
         <td style="width: 368px">专辑</td>
         <td >时长</td>
       </tr>
-      <tr v-for="(item, index) in tracks" :key="index">
+      <tr v-for="(item, index) in tracks" :key="index" @dblclick="playmusic(item.id)">
         <td v-text="index+1"></td> 
         <td>
           <i class="iconfont " :class="[like?'icon-aixin_shixin':'icon-xinaixin']"></i>
@@ -27,7 +27,7 @@
 
 <script>
 
-import {playlist} from "utils/findMusic.js"
+import {playlist, songurl} from "utils/findMusic.js"
 
 export default {
   data () { 
@@ -49,6 +49,13 @@ export default {
     playlist(this.id).then(res =>{
       this.tracks = res.data.playlist.tracks
     })
+  },
+  methods: {
+    playmusic(id){
+      songurl(id).then(res => {
+        this.$bus.$emit("sendUrl", res.data.data[0].url)
+      })
+    }
   }
 }
 </script>
