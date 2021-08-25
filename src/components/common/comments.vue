@@ -1,6 +1,22 @@
 <template>
 
   <div class="comments" v-if="list.length !== 0">
+    <div class="title">
+      <h1>评论 <i>(6)</i></h1>
+    </div>
+
+    <div class="text">
+      <textarea></textarea>
+      <div class="pin">
+        <div>
+          <i class="iconfont icon-smiling"></i>
+          <i>@</i>
+          <i>#</i>
+        </div>
+        <span>评论</span>
+      </div>
+    </div>
+
     <ul>
       <li v-for="(item, index) in list" :key="index">
         <el-avatar :size="45" :src="item.user.avatarUrl"></el-avatar>
@@ -73,6 +89,57 @@ export default {
 
 <style lang="scss" scoped>
   .comments{
+    .title{
+      border-bottom: 1px solid #e1e1e2;
+      padding-bottom: 14px;
+      h1{
+        font-size: 22px;
+        i{
+          color: #888888;
+          font-size: 16px;
+        }
+      }
+    }
+    .text{
+      margin-top: 20px;
+      width: 100%;
+      height: 134px;
+      background: #f0f0f2;
+      padding: 12px;
+      margin-bottom: 50px;
+      textarea{
+        width: 100%;
+        height: 64px;
+        border: 1px solid #e1e1e2;
+        resize: none;
+        outline: none;
+        font-size: 16px;
+      }
+      .pin{
+        display: flex;
+        justify-content: space-between;
+        padding-top: 12px;
+        &>div{
+          i{
+            font-size: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+            color: #666666;
+          }
+        }
+        span{
+          border: 1px solid #e1e1e2;
+          font-size: 14px;
+          background: #ffffff;
+          border-radius: 5px;
+          padding: 5px 10px;
+          cursor: pointer;
+        }
+      }
+    }
+
+
+
     ul{
       li{
         display: flex;

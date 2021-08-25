@@ -11,13 +11,15 @@
     </div>
     <!-- 进度条 -->
     <div class="block">
-      <span>02:44</span>
+      <span>{{songpaly | showTime}}</span>
       <el-slider 
       v-model="value"
+      :max="parseInt(songlong/1000)"
       :show-tooltip= "false"
+      @change="songchange"
       >
       </el-slider>
-      <span>{{}}</span>
+      <span>{{songlong | showTime}}</span>
     </div>
 
     <!-- 其他 -->
@@ -26,6 +28,7 @@
       <el-slider 
         v-model="value1"
         :show-tooltip= "false"
+        @input="sound"
         >
             </el-slider>
       <i class="iconfont icon-shunxubofang"></i>
@@ -37,7 +40,7 @@
       
       <i class="iconfont icon-gedan"></i>
     </div>
-    <audio controls="controls" height="100" width="100" ref="audio" class="audio" autoplay> 
+    <audio controls="controls" height="100" width="100" ref="audio" class="audio" autoplay :src="songsrc"> 
     </audio>
   </div>  
 </template>
@@ -56,6 +59,8 @@ export default {
     return {
       // 进度条
       value: 0,
+      // 正在播放事件
+      songpaly: 0,
       // 音量
       value1: 50,
       // 播放暂停的显示有隐藏
@@ -63,36 +68,69 @@ export default {
       // 控制 进度条的暂停与开始
       isStart: false,
       // 
-      mytime: null
+      mytime: null,
+      // 音乐 src
+      songsrc: '',
+      // 音乐大小
+      songlong: null
     }
   },
   mounted () {
-    this.$bus.$on("sendUrl", url => {
-      this.$refs.audio.src = url
+    this.$bus.$on("sendUrl", (url,dt) => {
+      this.songlong = dt
+      // this.$refs.audio.src = url
+      this.songsrc = url
       this.isMusicPlay()
+      this.value = 0
     })
+
   },
   methods: {
     playMusic(){
       this.isplay = !this.isplay
       if(this.isplay){
+        // 播放音频
         this.$refs.audio.play()
-
+        // 开始计时器
+        this.playtime()
       }else{
+        // 暂停音频
         this.$refs.audio.pause()
+        console.log(1)
+        clearInterval(this.mytime)
+        this.mytime = null
       }
     },
     // 判断 音乐是否在播放
     isMusicPlay(){
       if(this.$refs.audio.paused){
-        this.mytime = setInterval(()=>{
-          if(this.value >= 100){
-            clearInterval(this.mytime)
-            this.mytime = null
-          }
-          this.value++
-        },1000)
+        // 开始计时器
+       this.playtime()
       }
+    },
+    playtime(){
+      this.mytime = setInterval(()=>{
+        if(this.value >= parseInt(this.songlong/1000)){
+          clearInterval(this.mytime)
+          this.mytime = null
+        }
+        this.songpaly += 1000
+        this.value++
+      },1000)
+    },
+    // 控制音频
+    sound(){
+      this.$refs.audio.volume = this.value1/100
+      console.log(this.value1)
+    },
+    // 改变 音乐的播放进度
+    songchange(){
+      this.songpaly = this.value*1000
+      if(this.value < parseInt(this.songlong/1000)){
+        clearInterval(this.mytime)
+        this.playtime()
+      }
+      this.$refs.audio.currentTime = this.value
     }
   },
   filters: {

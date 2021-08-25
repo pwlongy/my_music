@@ -9,21 +9,21 @@ export function getRecommend (){
     }
   })
 }
-
+// 首页 banner
 export function getBanner(){
   return request({
     url: "/banner",
     method: 'get'
   })
 }
-
+// 
 export function getCopywriter(){
   return request({
     url: "/personalized/mv",
     method: 'get'
   })
 }
-
+// 
 export function getpersomalized(){
   return request({
     url: "/personalized/privatecontent/list",
@@ -161,5 +161,16 @@ export function toplist(){
   return request({
     url: '/toplist/detail',
     method: 'get',
+  })
+}
+
+// 歌手排行榜
+export function songer(type=1){
+  return request({
+    url: "/toplist/artist",
+    method: 'get',
+    params: {
+      type
+    }
   })
 }

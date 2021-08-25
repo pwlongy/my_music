@@ -9,7 +9,7 @@
         <td style="width: 368px">专辑</td>
         <td >时长</td>
       </tr>
-      <tr v-for="(item, index) in tracks" :key="index" @dblclick="playmusic(item.id)">
+      <tr v-for="(item, index) in tracks" :key="index" @dblclick="playmusic(item.id,item.dt)">
         <td v-text="index+1"></td> 
         <td>
           <i class="iconfont " :class="[like?'icon-aixin_shixin':'icon-xinaixin']"></i>
@@ -19,7 +19,7 @@
         <td>{{item.name}}<i>{{item.alia[0]}}</i></td>
         <td v-text="item.ar[0].name"></td>
         <td v-text="item.al.name"></td>
-        <td>05:25</td>
+        <td>{{item.dt | showtime}}</td>
       </tr>
     </table>
   </div>
@@ -28,6 +28,7 @@
 <script>
 
 import {playlist, songurl} from "utils/findMusic.js"
+import {formatDate} from "@/common/time.js"
 
 export default {
   data () { 
@@ -48,13 +49,20 @@ export default {
     // 获取歌单信息
     playlist(this.id).then(res =>{
       this.tracks = res.data.playlist.tracks
+      console.log(this.tracks)
     })
   },
   methods: {
-    playmusic(id){
+    playmusic(id, dt){
       songurl(id).then(res => {
-        this.$bus.$emit("sendUrl", res.data.data[0].url)
+        this.$bus.$emit("sendUrl", res.data.data[0].url, dt)
       })
+    }
+  },
+  filters: {
+    showtime(value){
+      let time = new Date(value)
+      return formatDate(time, 'mm:ss')
     }
   }
 }

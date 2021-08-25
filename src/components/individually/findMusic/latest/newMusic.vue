@@ -6,7 +6,7 @@
           <div class="right"><i class="el-icon-folder-add"> </i>全部收藏</div>
         </li>
         <ol>
-          <li v-for="(item, index) in newSonger" :key="index">
+          <li v-for="(item, index) in newSonger" :key="index" @dblclick="pushsong(item.id, item.song.mMusic.playTime)">
             <h2 v-text="index+1"></h2>
             <img v-lazy="item.picUrl">
             <u v-text="item.name">火光<i></i></u>
@@ -24,7 +24,7 @@ import {
 
 } from "element-ui"
 
-import {getSongerNow} from "utils/findMusic.js"
+import {getSongerNow, songurl} from "utils/findMusic.js"
 import {formatDate} from "@/common/time.js"
 export default {
   data () {
@@ -36,6 +36,7 @@ export default {
     getSongerNow(100).then(res => {
       this.newSonger = res.data.result
     })
+    
   },
   filters: {
     showDate(value){
@@ -43,8 +44,13 @@ export default {
       return formatDate(date, 'mm:ss')
     }
   },
-  computed: {
- 
+  methods: {
+    pushsong(id, dt){
+      console.log(id)
+       songurl(id).then(res => {
+        this.$bus.$emit("sendUrl", res.data.data[0].url, dt)
+      })
+    }
   }
 }
 </script>
