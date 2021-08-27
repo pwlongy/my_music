@@ -1,53 +1,27 @@
 <template>
   <div class="friend">
     <div class="left">
-      <div class="title clear_fix">
+      <div class="title clear_fix" >
         <span>动态</span>
-        <div><i class="el-icon-plus"></i>写动态</div>
+        <div @click="WriteDynamics"><i class="el-icon-plus"></i>写动态</div>
       </div>
 
-      <div class="main">
+      <div class="main" v-if="id">
         <ul>
-          <li>
+          <li v-for="(item, index) in list" :key="index">
             <div class="mainTitle">
-              <el-avatar :size="50" src=""></el-avatar>
+              <el-avatar :size="50" :src="item.user.avatarUrl"></el-avatar>
                 <div>
-                  <span><i>__何须问</i>分享单曲</span>
-                  <u>刚刚</u>
+                  <span><i>{{item.user.nickname}}</i>分享单曲</span>
+                  <u>{{item.showTime | pushtime}}</u>
                 </div>
             </div>
-            <span>我今天就想分享这一首音乐</span>
+            <span v-text="item.json.msg"></span>
             <div class="msg">
-              <img src=""/>
+              <img v-lazy="item.json.song.img80x80"/>
               <div>
-                <span>后继者</span>
-                <u>苏晗</u>
-              </div>
-            </div>
-            <div class="operate">
-              <div>
-                <i class="iconfont icon-good"></i>
-                <i class="iconfont icon-fenxiang2"></i>
-                <i class="iconfont icon-xiaoxi"></i>
-                <i class="iconfont icon-qita"></i>
-              </div>
-  
-            </div>
-          </li>
-          <li>
-            <div class="mainTitle">
-              <el-avatar :size="50" src=""></el-avatar>
-                <div>
-                  <span><i>__何须问</i>分享单曲</span>
-                  <u>刚刚</u>
-                </div>
-            </div>
-            <span>我今天就想分享这一首音乐</span>
-            <div class="msg">
-              <img src=""/>
-              <div>
-                <span>后继者</span>
-                <u>苏晗</u>
+                <span v-text="item.json.song.name"></span>
+                <u>{{item.json.song.artists | artusts}}</u>
               </div>
             </div>
             <div class="operate">
@@ -62,25 +36,28 @@
           </li>
         </ul>
       </div>
+      <span class="wu" v-else>
+        暂无动态
+      </span>
     </div>
 
     <div class="right">
       <div class="TopAll">
         <div class="top">
-          <el-avatar :size="50" src=""></el-avatar>
-          <span>__何须问</span>
+          <el-avatar :size="50" :src="user.avatarUrl"></el-avatar>
+          <span v-text="user.nickname"></span>
         </div>
         <div class="dynamic">
           <span>
-            <i>6</i>
+            <i v-text="user.eventCount"></i>
             <u>动态</u>
           </span>
           <span>
-            <i>2</i>
+            <i v-text="user.follows"></i>
             <u>关注</u>
           </span>
           <span>
-            <i>10</i>
+            <i v-text="user.followeds"></i>
             <u>粉丝</u>
           </span>
         </div>
@@ -93,39 +70,11 @@
             <i>更多</i>
           </div>
           <ul>
-            <li>
-              <img src=""/>
+            <li v-for="(item, index) in Topic" :key="index">
+              <img v-lazy="item.sharePicUrl"/>
               <div>
-                <span>#好想进入二次元#</span>
-                <u>17176人参加</u>
-              </div>
-            </li>
-            <li>
-              <img src=""/>
-              <div>
-                <span>#好想进入二次元#</span>
-                <u>17176人参加</u>
-              </div>
-            </li>
-            <li>
-              <img src=""/>
-              <div>
-                <span>#好想进入二次元#</span>
-                <u>17176人参加</u>
-              </div>
-            </li>
-            <li>
-              <img src=""/>
-              <div>
-                <span>#好想进入二次元#</span>
-                <u>17176人参加</u>
-              </div>
-            </li>
-            <li>
-              <img src=""/>
-              <div>
-                <span>#好想进入二次元#</span>
-                <u>17176人参加</u>
+                <span>#{{item.title}}#</span>
+                <u>{{item.participateCount}}人想参加</u>
               </div>
             </li>
           </ul>
@@ -135,7 +84,7 @@
 
     </div>
    
-    
+    <loginDialog ref="dialog"></loginDialog>
 
 
   </div>
@@ -143,9 +92,68 @@
 
 <script>
   import { Avatar } from "element-ui"
+  import loginDialog from 'components/common/loginDialog.vue'
+  import {userEvent, hotTopic} from 'utils/friend.js'
+  import {formatDate} from '@/common/time.js'
+  import {mapState} from 'vuex'
   export default {
     components: {
-      [Avatar.name]: Avatar
+      [Avatar.name]: Avatar,
+      loginDialog
+    },
+    data () {
+      return {
+        id: null,
+        // 动态列表
+        list: [],
+        // 热门话题
+        Topic: []
+
+      }
+    },
+    mounted () {
+      this.id =  localStorage.getItem("uid")
+      if(this.id){
+        // 获取动态数据
+        userEvent(this.id).then(res => {
+          this.list = res.data.events
+          
+          for(let i = 0; i < this.list.length; i++){
+            this.list[i].json = JSON.parse(this.list[i].json)
+          }
+        })
+      }else{
+        console.log(2)
+      }
+
+      hotTopic().then(res => {
+        console.log(res)
+        this.Topic = res.data.hot
+      })
+    },
+    methods: {
+      WriteDynamics(){
+        if(!this.id){
+          this.$refs.dialog.dialogVisible = true
+        }
+      }
+    },
+    filters: {
+      artusts(value){
+        let name = ''
+        for(let i = 0; i < value.length; i++){
+          name += value[i].name+'/'
+        }
+        name = name.substring(0, name.length-1)
+        return name
+      },
+      pushtime(value){
+        let time = new Date(value)
+        return formatDate(time, 'yyyy-MM-dd hh:mm')
+      }
+    },
+    computed: {
+      ...mapState("user",['user'])
     }
   }
 </script>
@@ -153,7 +161,6 @@
 <style lang="scss" scope>
   .friend{
     height: 100%;
-    overflow: auto;
     display: flex;  
     .left{
       width: 1380px; 
@@ -263,6 +270,12 @@
             }
           }
         }
+      }
+
+      .wu{
+        display: block;
+        width: 100px;
+        margin: 80px auto;
       }
     }
 

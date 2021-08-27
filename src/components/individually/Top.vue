@@ -19,8 +19,9 @@
     </el-input>
 
     <div class="login">
-      <el-avatar :size="35" ></el-avatar>
-      <u @click="login">未登录<i class="el-icon-caret-bottom"></i></u>
+      <el-avatar :size="35" :src="user.avatarUrl || ''"></el-avatar>
+      <u @click="login" v-if="!uid">未登录<i class="el-icon-caret-bottom" ></i></u>
+      <u v-else >{{user.nickname}} <i class="el-icon-caret-bottom" ></i></u>
       <!-- <u v-else>{{userInfo.nickname}}<i class="el-icon-caret-bottom"></i></u> -->
     </div>
 
@@ -37,6 +38,9 @@ import {
 } from "element-ui"
 
 import loginDialog from 'components/common/loginDialog.vue'
+
+import {usermessage} from 'utils/findMusic.js'
+import {mapMutations, mapState} from 'vuex'
 export default{
   components: {
     [Input.name]: Input,
@@ -54,12 +58,29 @@ export default{
     }
   },
   mounted () {
+    this.uid = localStorage.getItem("uid")
+    if(this.uid){
+      this.uid = parseInt(this.uid)
+       // 获取用户基本信息
+      console.log(this.uid)
+      usermessage(this.uid).then(res => {
+        console.log(res)
+        this.getUserMessage(res.data.profile)
+      })
+    }
+   this.$bus.$on("updatauser", ()=>{
+    this.$router.go(0)
+   })
   },
   methods: {
+    ...mapMutations("user", ['getUserMessage']),
+
     login(){
-      console.log(this.$refs.login)
       this.$refs.login.dialogVisible = true
-    }
+    },
+  },
+  computed: {
+    ...mapState('user', ['user'])
   }
 }
 </script>
@@ -141,102 +162,5 @@ export default{
       }
     }
    
-
-   ::v-deep .el-dialog{
-     width: 437px;
-     height: 662px;
-      background: #fafafa;
-     .main{
-       height: 600px;
-       padding: 0 35px;
-
-       .span{
-         color: rgb(248, 66, 66);
-         float: right;
-       }
-       img{
-         height: 105px;
-         width: 100%;
-         margin: 50px 0;
-       }
-       &>.input{
-         height: 100px;
-         display: flex;
-         flex-direction: column;
-         .el-input{
-           width: 100%;
-           flex: 1;
-            input{
-              display: block;
-              width: 100%;
-              height: 100%;
-              border: none;
-              border-radius: 0;
-              border: 1px solid #d8d8d8
-            }
-            .el-input__prefix{
-              line-height: 50px;
-              i{
-                font-size: 18px;
-              }
-            }
-          }
-          .el-input:nth-child(1){
-            input{
-              border-radius: 5px 5px 0 0;
-            }
-          }
-          .el-input:nth-child(2){
-            input{
-              border-radius: 0 0 5px 5px;
-              border-top: none  ;
-            }
-            .el-input__suffix{
-              line-height: 50px;
-            }
-          }
-       }
-
-      &>.el-button{
-        display: block;
-        width: 100%;
-        height: 50px;
-        color: #fff;
-        background: #ea4848;
-      }
-      .el-button:hover{
-        background: #a82828;
-      }
-      &>a{
-        display: block;
-        height: 50px;
-        text-align: center;
-        width: 100%;
-        line-height: 50px;
-        cursor: pointer;
-      }
-      .loginI{
-        display: flex;
-        justify-content: space-between;
-        height: 44px;
-        .iconfont{
-          font-size: 36px;
-          cursor: pointer;
-        }
-        .iconfont:nth-child(1){
-          color: #67b633;
-        }
-        .iconfont:nth-child(2){
-          color: #34a0df;
-        }
-        .iconfont:nth-child(3){
-          color: #ea4a4a;
-        }
-        .iconfont:nth-child(4){
-          color: #34a0df;
-        }
-      }
-    }
-   }
   }
 </style>

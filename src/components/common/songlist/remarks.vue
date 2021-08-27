@@ -1,6 +1,6 @@
 <template>
   <div class="remarks">
-    <commentslist :list="commentsList"></commentslist>
+    <commentslist :list="commentsList" @upcomment="upcomment"></commentslist>
   </div>
 </template>
 
@@ -28,7 +28,16 @@ export default {
       this.commentsList = res.data.comments
     })
   },
-  
+  methods: {
+    upcomment(){
+      console.log(1)
+      getComment(this.id).then(res => {
+        console.log(res)
+        this.commentsList = res.data.comments
+        console.log(this.commentslist)
+      })
+    }
+  }
 }
 </script>
 

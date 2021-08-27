@@ -64,7 +64,7 @@ export default {
       // 音量
       value1: 50,
       // 播放暂停的显示有隐藏
-      isplay: true,
+      isplay: false,
       // 控制 进度条的暂停与开始
       isStart: false,
       // 
@@ -77,8 +77,10 @@ export default {
   },
   mounted () {
     this.$bus.$on("sendUrl", (url,dt) => {
+      this.isplay = true
       this.songlong = dt
       // this.$refs.audio.src = url
+      this.songpaly = 0
       this.songsrc = url
       this.isMusicPlay()
       this.value = 0
@@ -96,7 +98,6 @@ export default {
       }else{
         // 暂停音频
         this.$refs.audio.pause()
-        console.log(1)
         clearInterval(this.mytime)
         this.mytime = null
       }
@@ -121,7 +122,6 @@ export default {
     // 控制音频
     sound(){
       this.$refs.audio.volume = this.value1/100
-      console.log(this.value1)
     },
     // 改变 音乐的播放进度
     songchange(){

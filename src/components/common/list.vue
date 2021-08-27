@@ -89,7 +89,6 @@ export default {
     // 表单信息
     list: {
       type: Array,
-      required: true,
       default() {
         return []
       }

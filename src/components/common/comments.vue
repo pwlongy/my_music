@@ -1,23 +1,23 @@
 <template>
 
-  <div class="comments" v-if="list.length !== 0">
+  <div class="comments">
     <div class="title">
       <h1>评论 <i>(6)</i></h1>
     </div>
 
     <div class="text">
-      <textarea></textarea>
+      <textarea ref="textarea"></textarea>
       <div class="pin">
         <div>
           <i class="iconfont icon-smiling"></i>
           <i>@</i>
           <i>#</i>
         </div>
-        <span>评论</span>
+        <span @click="pushComment">评论</span>
       </div>
     </div>
 
-    <ul>
+    <ul v-if="list.length !== 0">
       <li v-for="(item, index) in list" :key="index">
         <el-avatar :size="45" :src="item.user.avatarUrl"></el-avatar>
         <div class="right">
@@ -42,7 +42,8 @@
 
 <script>
 import {formatDate} from  '@/common/time.js'
-// import {good} from "utils/finMusic.js"
+
+import {comment} from "utils/findMusic.js"
 import {
   Avatar
 } from "element-ui"
@@ -55,6 +56,11 @@ export default {
       default() {
         return []
       }
+    },
+    // 类型
+    type: {
+      type: Number,
+      default: 2
     }
   },
   data () {
@@ -83,6 +89,35 @@ export default {
     //   console.log("点赞")
     //   good()
     // }
+    // 发布评论
+    pushComment(){
+      let value = this.$refs.textarea.value
+      if(value.length === 0){
+        this.$message("内容不能为空")
+      }else{
+        comment(1, this.type, this.id, value).then(res => {
+          if(res.code === 200){
+            this.$message({
+              message: '发送成功',
+              type: 'success'
+            })
+             console.log(res)
+            this.$refs.textarea.value = ""
+            // 刷新评论
+            this.$emit('upcomment')
+            this.reload();
+          }else{
+            this.$message({
+              message: '发送失败',
+              type: 'error'
+            })
+          }
+       
+       
+        })
+      }
+   
+    }
   }
 }
 </script>

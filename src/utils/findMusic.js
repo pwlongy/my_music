@@ -1,4 +1,18 @@
 import { request } from "./request.js";
+
+// 获取用户基本信息
+export function usermessage(uid){
+  return request({
+    url: "/user/detail",
+    method: 'get',
+    params: {
+      uid
+    }
+  })
+}
+
+
+
 // 个性推荐
 export function getRecommend (){
   return request({
@@ -110,6 +124,65 @@ export function songurl(id){
     }
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 获取全部歌单
+export function musiclist(){
+  return request({
+    url: '/top/playlist',
+    method: 'get',
+    params: {
+      limit: 99
+    }
+  })
+}
+// 获取精品歌单
+export function highquality(){
+  return request({
+    url: '/top/playlist/highquality',
+    method: 'get'
+  })
+}
+
+// 发送、删除、回复评论
+export function comment(t, type, id, content, commentid){
+  return request({
+    url: '/comment',
+    method: 'get',
+    params: {
+      t,
+      type,
+      id,
+      content,
+      commentid
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

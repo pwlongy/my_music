@@ -1,6 +1,6 @@
 <template>
   <div>
-    <songList :Songplaylist="songplayList"></songList>
+    <songList :Songplaylist="songplayList" ></songList>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default{
       this.songplayList = res.data.playlist
     })
 
-  }
+  },
 }
 </script>
 

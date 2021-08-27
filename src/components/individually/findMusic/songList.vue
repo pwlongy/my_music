@@ -105,41 +105,13 @@
 
     <!-- 列表 -->
     <div class="list clear_fix">
-      <div class="listItem">
-        <img src="" alt="">
+      <div class="listItem" @click="pushgoodlist">
+        <img src="~assets/images/2021-08-26_03.jpg" alt="">
         <span>精品歌单倾心推荐，给最懂音乐的你</span>
       </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你精品歌单倾心推荐，给最懂音乐的你精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
-      </div>
-      <div class="listItem">
-        <img src="" alt="">
-        <span>精品歌单倾心推荐，给最懂音乐的你</span>
+      <div class="listItem" v-for="(item, index) in songlist" :key="index" @click="pushlist(item.id)">
+        <img v-lazy="item.coverImgUrl" alt="">
+        <span v-text="item.name"></span>
       </div>
     </div>
 
@@ -161,6 +133,9 @@ import {
   Button,
   Pagination,
 } from "element-ui"
+
+import {musiclist} from "utils/findMusic.js"
+
 export default {
   components: {
     [Popover.name]: Popover,
@@ -169,8 +144,23 @@ export default {
   },
   data() {
       return {
-
+        songlist: []
       }
+  },
+  mounted () {
+    musiclist().then(res =>{
+      this.songlist = res.data.playlists
+    }) 
+  },
+  methods: {
+    // 跳转到响应的歌单详情
+    pushlist(id){
+      this.$router.push("/recommendeSongList/"+id)
+    },
+    // 跳转至精品歌单
+    pushgoodlist(){
+      this.$router.push("/home/goodlist")
+    }
   }
 }
 </script>
@@ -204,8 +194,7 @@ export default {
       margin-bottom: 26px;
       display: flex;
       span{
-        padding: 0 10px;
-        border-right: 1px solid #ceccd4;      
+        padding: 0 10px;    
       }
     }
 
@@ -217,19 +206,15 @@ export default {
       .listItem{
         width: 245px;
         height: 310px;
-        background: #ceccd4;
         margin-bottom: 40px;
         img{
           height: 245px;
           width: 245px;
-          background: lightcoral;
         }
         span{
-          margin-top: 15px;
           display: block;
           height: 44px;
           font-size: 16px;
-          background: lightgreen;
           overflow: hidden;
           display: -webkit-box;
           -webkit-box-orient: vertical;

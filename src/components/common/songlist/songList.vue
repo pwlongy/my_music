@@ -49,7 +49,6 @@ export default {
     // 获取歌单信息
     playlist(this.id).then(res =>{
       this.tracks = res.data.playlist.tracks
-      console.log(this.tracks)
     })
   },
   methods: {

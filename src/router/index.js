@@ -22,7 +22,11 @@ const routes = [
       },
       {
         path: 'songList',
-        component: () => import("@/components/individually/findMusic/songList.vue")
+        component: () => import("@/components/individually/findMusic/songList.vue"),
+      },
+      {
+        path: 'goodlist',
+        component: () => import("components/individually/findMusic/goodlist/goodlist.vue")
       },
       {
         path: "anchor",
@@ -156,6 +160,9 @@ const routes = [
   {
     path: "/songvideo/:id",
     component: () => import("views/video/video.vue")
+  },{
+    path: '/lyrics',
+    component: () => import("components/individually/findMusic/lyrics/lyrics.vue")
   }
 ]
 
