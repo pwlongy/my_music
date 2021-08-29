@@ -132,9 +132,11 @@ export default{
     }
 
     // 搜索框
-    .el-input {
+    ::v-deep .el-input {
       width: 274px;
-      border-radius: 15px;
+      &>input{
+        border-radius: 15px;
+      }
     }
 
     // login

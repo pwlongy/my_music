@@ -94,6 +94,13 @@
 
           </el-menu>   
 
+          <div class="song" v-if="playMusicDetail.length !== 0">
+              <img v-lazy="playMusicDetail[0].al.picUrl" @click="pushlyrics">
+              <div>
+                <span v-text="playMusicDetail[0].name"></span>
+                <p v-text="playMusicDetail[0].ar[0].name" @click="pushlyrics"></p>
+              </div>
+          </div>
         </el-col>
 
         <el-col :span="21">
@@ -106,6 +113,8 @@
 </template>
   
 <script>
+import {mapState} from "vuex"
+
 import {
   Col,
   Row,
@@ -114,6 +123,7 @@ import {
   Submenu,
   MenuItemGroup
 } from "element-ui" 
+
 export default {
   components: {
     [Col.name]: Col,
@@ -123,12 +133,19 @@ export default {
     [Submenu.name]: Submenu,
     [MenuItemGroup.name]: MenuItemGroup,
   },
+  computed: {
+    ...mapState("songDetail", ['playMusicId', 'playMusicDetail'])
+  },
   methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      // 跳转至歌曲详情页
+      pushlyrics(){
+        this.$router.push('/lyrics')
       }
   }
 }
@@ -143,6 +160,7 @@ export default {
       .ColLeft{
         border: 1px solid #e1e1e2;
         background: #f5f5f7;
+        position: relative;
       }
       .el-col{
         height: 100%;
@@ -154,6 +172,34 @@ export default {
         .iconfont{
           margin-right: 14px;
           font-size: 20px;
+        }
+      }
+      .song{
+        width: 100%;
+        height: 72px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        border-top: 1px solid #e1e1e2;
+        img{
+          width: 55px;
+          height: 55px;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        &>div{
+          span{
+            display: block;
+            cursor: pointer;
+          }
+          p{
+            margin-top: 6px;
+            color: #666666;
+            cursor: pointer;
+          }
         }
       }
 

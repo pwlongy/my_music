@@ -17,7 +17,7 @@
                 </div>
             </div>
             <span v-text="item.json.msg"></span>
-            <div class="msg">
+            <div class="msg" @dblclick="pushsong(item.json.song.id,item.json.song.bMusic.playTime)">
               <img v-lazy="item.json.song.img80x80"/>
               <div>
                 <span v-text="item.json.song.name"></span>
@@ -136,6 +136,11 @@
         if(!this.id){
           this.$refs.dialog.dialogVisible = true
         }
+      },
+      // 播放音乐
+      pushsong(id,time){
+        // 获取 url
+        this.$bus.$emit("sendUrl",id ,time)
       }
     },
     filters: {

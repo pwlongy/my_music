@@ -3,7 +3,7 @@
     <div class="title">
       <div class="top">
         <h1>语种:</h1>
-        <ul>
+        <ul ref="langer">
           <li class="active">全部</li>
           <li>华语</li>
           <li>欧美</li>
@@ -58,15 +58,33 @@
     </div>
 
     <div>
-      <list :top="false"></list>
+      <list :top="false" width="200px" height="254px" imgheight="200px" :list="list" @itemlist="pushSonger"></list>
     </div>
   </div>
 </template>
 
 <script>
+import {getSonger} from 'utils/findMusic.js'
 export default {
   components: {
     list: () => import("@/components/common/list.vue")
+  },
+  mounted () {
+    // 获取所有歌手数据
+    getSonger().then(res => {
+      console.log(res)
+      this.list = res.data.artists
+    })
+  },
+  data () {
+    return {
+      list: []
+    }
+  },
+  methods: {
+    pushSonger(id){
+      this.$router.push("/songerList/"+id)
+    }
   }
 }
 </script>

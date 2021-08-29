@@ -27,7 +27,7 @@
 
 <script>
 
-import {playlist, songurl} from "utils/findMusic.js"
+import {playlist} from "utils/findMusic.js"
 import {formatDate} from "@/common/time.js"
 
 export default {
@@ -53,9 +53,7 @@ export default {
   },
   methods: {
     playmusic(id, dt){
-      songurl(id).then(res => {
-        this.$bus.$emit("sendUrl", res.data.data[0].url, dt)
-      })
+      this.$bus.$emit("sendUrl", id, dt)
     }
   },
   filters: {

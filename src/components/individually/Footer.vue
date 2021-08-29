@@ -51,6 +51,8 @@ import {
 } from "element-ui"
 
 import {formatDate} from "@/common/time.js"
+import {mapMutations} from 'vuex'
+import {songurl, getSongDetail} from "utils/findMusic"
 export default {
   components: {
     [Slider.name]: Slider
@@ -76,18 +78,34 @@ export default {
     }
   },
   mounted () {
-    this.$bus.$on("sendUrl", (url,dt) => {
+    this.$bus.$on("sendUrl", async (id,dt) => {
+      // 获取 url 地址
+      await songurl(id).then(res =>{
+        this.songsrc = res.data.data[0].url
+      })
+
       this.isplay = true
       this.songlong = dt
       // this.$refs.audio.src = url
       this.songpaly = 0
-      this.songsrc = url
+        
       this.isMusicPlay()
       this.value = 0
+
+      // 将 音乐 id 保存再 vuex中
+      this.getMusicId(id)
+
+      // 获取音乐详情
+      getSongDetail(id).then(res => {
+        this.getMusicDetail(res.data.songs)
+      })
+
+     
     })
 
   },
   methods: {
+    ...mapMutations('songDetail', ['getMusicId', 'getMusicDetail']),
     playMusic(){
       this.isplay = !this.isplay
       if(this.isplay){

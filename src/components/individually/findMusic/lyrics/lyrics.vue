@@ -56,7 +56,7 @@ export default {
 <style lang="scss" scoped>
   .lyrics{
     background: #fff;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     position: absolute;
     left: 0;

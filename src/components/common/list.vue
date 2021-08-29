@@ -12,11 +12,11 @@
         :style="{'width': width, 'height': height}"
         v-for="(item, index) in list" :key="index">
          <img 
-          v-lazy="item.sPicUrl || item.picUrl" 
+          v-lazy="item.img1v1Url || item.sPicUrl || item.picUrl" 
           :style="{'height' : imgheight}"/>
          <span>
-           <i v-text="item.name"></i>
-           <i v-text="item.artistName"></i>
+           <i v-text="item.rcmdtext"></i>
+           <i v-text="item.artistName || item.name"></i>
          </span>
        </div>  
      </div>

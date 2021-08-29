@@ -124,6 +124,16 @@ export function songurl(id){
     }
   })
 }
+// 获取音乐详情
+export function getSongDetail(ids){
+  return request({
+    url: '/song/detail',
+    method: 'get',
+    params: {
+      ids
+    }
+  })
+}
 
 
 
@@ -205,6 +215,7 @@ export function djrecommend(){
     method: 'get'
   })
 }
+
 export function djpaygift(){
   return request({
     url: "/dj/paygift",
@@ -215,6 +226,16 @@ export function djpaygift(){
   })
 }
 
+// 电台分类推荐
+export function recommenstype(type){
+  return request({
+    url: '/dj/recommend/type',
+    method: 'get',
+    params: {
+      type
+    }
+  })
+}
 
 
 
@@ -244,6 +265,91 @@ export function songer(type=1){
     method: 'get',
     params: {
       type
+    }
+  })
+}
+// 获取歌手专辑
+export function getsongerAlbum(id){
+  return request({
+    url: '/artist/album',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取相似歌手
+export function getsongerArtist(id){
+  return request({
+    url: '/simi/artist',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取歌手详情
+export function getsongerDetail(id){
+  return request({
+    url: '/artist/detail',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取歌手描述
+export function getsongerDesc(id){
+  return request({
+    url: '/artist/desc',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取歌手热门 50 首
+export function getsongerTopSong(id){
+  return request({
+    url: '/artist/top/song',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取歌手热门 50 首
+export function getsongerMv(id){
+  return request({
+    url: '/artist/mv',
+    method: 'get',
+    params: {
+      id,
+      limit: 100
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 获取 歌手列表
+export function getSonger(type=-1, area=-1){
+  return request({
+    url: '/artist/list',
+    method: 'get',
+    params: {
+      type,
+      area
     }
   })
 }

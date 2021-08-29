@@ -160,9 +160,36 @@ const routes = [
   {
     path: "/songvideo/:id",
     component: () => import("views/video/video.vue")
-  },{
+  },
+  {
     path: '/lyrics',
     component: () => import("components/individually/findMusic/lyrics/lyrics.vue")
+  },
+  {
+    path: '/songerList/:id',
+    component: () => import("components/individually/songerList/songerList.vue"),
+    children: [
+      {
+        path: '',
+        redirect: '/songerList/:id/album'
+      },
+      {
+        path: 'album',
+        component: () => import("components/individually/songerList/songerListChild/album.vue")
+      },
+      {
+        path: 'mv',
+        component: () => import("components/individually/songerList/songerListChild/mv.vue")
+      },
+      {
+        path: 'similarSonger',
+        component: () => import("components/individually/songerList/songerListChild/similarSonger.vue")
+      },
+      {
+        path: 'songerDetail',
+        component: () => import("components/individually/songerList/songerListChild/songerDetail.vue")
+      }
+    ]
   }
 ]
 

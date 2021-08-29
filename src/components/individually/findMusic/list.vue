@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import {toplist, playlist, songurl, songer} from 'utils/findMusic.js'
+import {toplist, playlist, songer} from 'utils/findMusic.js'
 export default {
   data () {
     return {
@@ -107,9 +107,7 @@ export default {
       this.$router.push("/recommendeSongList/"+id)
     },
     playmusic(id, dt){
-       songurl(id).then(res => {
-        this.$bus.$emit("sendUrl", res.data.data[0].url, dt)
-      })
+        this.$bus.$emit("sendUrl", id, dt)
     }
   },
   filters: {
