@@ -1,5 +1,13 @@
 # my_music
 
+## 接口地址
+- git clone https://github.com/Binaryify/NeteaseCloudMusicApi.git 
+- 运行 node app.js
+
+## 运行代码
+- git clone https://github.com/pwlongy/my_music.git
+- npm start
+
 ## Project setup
 ```
 npm install

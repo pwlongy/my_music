@@ -40,10 +40,14 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 const comments = () => import("components/common/comments.vue")
 export default {
   components: {
     comments
+  },
+  computed: {
+    ...mapState('songDetail', ['playMusicDetail'])
   },
   data () {
     return {
