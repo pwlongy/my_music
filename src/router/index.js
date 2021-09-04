@@ -190,6 +190,48 @@ const routes = [
         component: () => import("components/individually/songerList/songerListChild/songerDetail.vue")
       }
     ]
+  },
+  {
+    path: '/search/:searchWord',
+    component: () => import("components/individually/searchWord/search.vue"),
+    children: [
+      {
+        path: '',
+        redirect: '/search/:searchWord/searchSingle'
+      },
+      {
+        path: 'searchAlbum',
+        component: () => import("components/individually/searchWord/searchChild/searchAlbum.vue")
+      },
+      {
+        path: 'searchHostRadio',
+        component: () => import("components/individually/searchWord/searchChild/searchHostRadio.vue")
+      },
+      {
+        path: 'searchLyrics',
+        component: () => import("components/individually/searchWord/searchChild/searchLyrics.vue")
+      },
+      {
+        path: 'searchSonger',
+        component: () => import("components/individually/searchWord/searchChild/searchSonger.vue")
+      },
+      {
+        path: 'searchSingle',
+        component: () => import("components/individually/searchWord/searchChild/searchSingle.vue")
+      },
+      {
+        path: 'searchSongList',
+        component: () => import("components/individually/searchWord/searchChild/searchSongList.vue")
+      },
+      {
+        path: 'searchUser',
+        component: () => import("components/individually/searchWord/searchChild/searchUser.vue")
+      },
+      {
+        path: 'searchVideo',
+        component: () => import("components/individually/searchWord/searchChild/searchVideo.vue")
+      },
+    ]
   }
 ]
 
@@ -197,4 +239,8 @@ const router = new VueRouter({
   routes
 })
 
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
 export default router

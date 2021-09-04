@@ -134,8 +134,26 @@ export function getSongDetail(ids){
     }
   })
 }
-
-
+// 获取歌词
+export function getSongWord(id){
+  return request({
+    url: '/lyric',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+// 获取歌曲 评论
+export function getSongCommon(id){
+  return request({
+    url: '/comment/music',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
 
 
 
@@ -330,6 +348,17 @@ export function getsongerMv(id){
   })
 }
 
+// 获取专辑内容
+export function albumSongs(id){
+  return request({
+    url: '/album',
+    method: 'get',
+    params: {
+      id
+    }
+  })
+}
+
 
 
 
@@ -350,6 +379,57 @@ export function getSonger(type=-1, area=-1){
     params: {
       type,
       area
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 获取热搜列表
+export function getHotSearch(){
+  return request({
+    url: '/search/hot/detail',
+    method: 'get'
+  })
+}
+// 获取搜索歌单
+export function getSearchList(keywords, type){
+  return request({
+    url: "/search",
+    method: 'get',
+    params: {
+      keywords,
+      type,
+      limit: 100
+    }
+  })
+}
+
+// 获取搜索建议
+export function getSearchSuggest(keywords){
+  return request({
+    url: '/search/suggest',
+    method: 'get',
+    params: {
+      keywords
     }
   })
 }

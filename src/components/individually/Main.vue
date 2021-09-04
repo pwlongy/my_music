@@ -105,7 +105,7 @@
 
         <el-col :span="21">
           <div class="ColRight clear_fix">
-            <router-view></router-view>
+            <router-view ></router-view>
           </div>
         </el-col>
       </el-row>

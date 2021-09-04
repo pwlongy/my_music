@@ -18,12 +18,11 @@
       <h1>推荐歌单</h1>
       <span>更多<i class="el-icon-arrow-right"></i></span>
     </div>
-
     <div class="songList">
       <div class="songItem" @click="everyday">
         <div>
-          <span>星期五</span>
-          <i>20</i>
+          <span>{{time[1]}}</span>
+          <i>{{time[0]}}</i>
         </div>
         <span>每日歌曲推荐</span>
       </div>
@@ -128,7 +127,35 @@ export default {
     [CarouselItem.name]: CarouselItem,
     list
   },
- 
+  computed: {
+    time(){
+      let myweek = []
+      let time = new Date()
+      let day = time.getDate()
+      myweek.push(day)
+      let week = time.getDay()
+      function  x (){
+        switch (week){
+          case 0:
+            return "星期天"
+          case 1:
+            return "星期一"
+          case 2:
+            return "星期二"
+          case 3:
+            return "星期三"
+          case 4:
+            return "星期四"
+          case 5:
+            return "星期五"
+          case 6:
+            return "星期六"
+        }
+      }
+      myweek.push(x())
+      return myweek
+    }
+  }
 }
 </script>
 

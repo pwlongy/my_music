@@ -1,6 +1,6 @@
 <template>
   <div class="remarks">
-    <commentslist :list="commentsList" @upcomment="upcomment"></commentslist>
+    <commentslist :list="commentsList" @upcomment="upcomment" :total='total'></commentslist>
   </div>
 </template>
 
@@ -14,7 +14,9 @@ export default {
     return {
       id: null,
       // 评论信息
-      commentsList: []
+      commentsList: [],
+      // 数据条数
+      total: null
     }
   },
   components: {
@@ -26,6 +28,7 @@ export default {
     // 获取评论信息
     getComment(this.id).then(res => {
       this.commentsList = res.data.comments
+      this.total = res.data.total
     })
   },
   methods: {

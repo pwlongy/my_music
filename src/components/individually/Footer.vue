@@ -78,7 +78,11 @@ export default {
     }
   },
   mounted () {
+   
     this.$bus.$on("sendUrl", async (id,dt) => {
+      if(this.mytime !== null){
+        clearInterval(this.mytime)
+      }
       // 获取 url 地址
       await songurl(id).then(res =>{
         this.songsrc = res.data.data[0].url
@@ -118,6 +122,7 @@ export default {
         this.$refs.audio.pause()
         clearInterval(this.mytime)
         this.mytime = null
+        return
       }
     },
     // 判断 音乐是否在播放

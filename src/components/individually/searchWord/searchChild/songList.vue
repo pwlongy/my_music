@@ -1,65 +1,73 @@
 <template>
-  <div class="everyDay">
+  <div class="songlist" v-if="singleList.length !== 0">
     <table cellspacing="0">
       <tr>
         <td style="width: 64px"></td>
         <td style="width: 72px">操作</td>
-        <td style="width: 567px">音乐标题</td>
+        <td style="width: 400px">音乐标题</td>
         <td style="width: 400px">歌手</td>
         <td style="width: 368px">专辑</td>
         <td >时长</td>
       </tr>
-      <tr v-for="(item, index) in list" :key="index" @dblclick="pushsong(item.id, item.dt)">
+      <tr v-for="(item, index) in singleList" :key="index" @dblclick="playmusic(item.id,item.duration)">
         <td v-text="index+1"></td> 
         <td>
-          <i class="iconfont " :class="[like?'icon-aixin_shixin':'icon-xinaixin']"></i>
+          <i class="iconfont icon-xinaixin"></i>
         </td>
-        <td>{{item.name}}<i>{{item.alia[0]}}</i></td>
-        <td v-text="item.ar[0].name"></td>
-        <td v-text="item.al.name"></td>
-        <td>{{item.dt | showtime}}</td>
+        <td>{{item.name}}<i></i></td>
+        <td>{{item.artists | artusts}}</td>
+        <td>{{item.album.name}}</td>
+        <td>{{item.duration | showtime}}</td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
-import {recomSong} from "utils/findMusic.js"
-import {itemListerMinxin} from "@/common/mixin.js"
 
+import {formatDate} from "@/common/time.js"
 export default {
-  mounted () {
-    recomSong().then(res => {
-      this.list = res.data.data.dailySongs
-    })
-  },
-  mixins: [itemListerMinxin],
-  components: {
-  },
-  data () {
-    return {
-      list: [],
-      like: false,
+  props: {
+    singleList: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   },
+  filters: {
+    showtime(value){
+      let time = new Date(value)
+      return formatDate(time, 'mm:ss')
+    },
+     artusts(value){
+        let name = ''
+        for(let i = 0; i < value.length; i++){
+          name += value[i].name+'/'
+        }
+        name = name.substring(0, name.length-1)
+        return name
+      },
+  },
   methods: {
-    pushsong(id, dt){
-      this.$bus.$emit('sendUrl', id , dt)
+    playmusic(id,dt){
+      this.$bus.$emit('sendUrl', id, dt)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .everyDay{
-    padding: 20px 30px;
-     table{
+.songlist{
+    table{
       width: 100%;
-      border: 1px solid #bdbdbd;
       tr{
         height: 36px;
         td{
           padding-left: 12px;
+          overflow:hidden; 
+          text-overflow:ellipsis; 
+          white-space:nowrap; 
         }
         td:nth-child(2){
           i{

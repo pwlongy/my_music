@@ -130,4 +130,110 @@
     .font-none{
         color: black !important;
     }
+    .searchPopover{
+        height: 630px;
+        overflow: auto;
+        padding: 0 !important;
+      .search{
+        padding: 18px;
+        &>span{
+          display: block;
+          font-size: 18px;
+          color: #666;
+        }
+        .items{
+           padding: 14px 28px;
+           display: flex;
+           .item{
+             height: 30px;
+             border-radius: 15px;
+             border: 1px solid #d3d3d3;
+             padding: 0 10px;
+             display: flex;
+             align-items: center;
+             color: #333333;
+           }
+        }
+        ul{
+          li{
+            padding: 14px 28px;
+            height: 80px;
+            display: flex;
+            cursor: pointer;
+            &>span{
+              display: block;
+              height: 100%;
+              width: 40px;
+              font-size: 18px;
+              display: flex;
+              align-items: center;
+              color: #999;
+            }
+            .active{
+              color: #ff3a3a;
+            }
+            &>div{
+              display: flex;
+              flex-direction: column;
+              width: 440px;
+              u{
+                font-size: 10px;
+                color: #333333;
+                font-weight: 1000;
+                margin-bottom: 14px;
+                i{
+                  color: #d0d0d0;
+                  margin: 0 16px;
+                }
+                img{
+                  height: 15px;
+                }
+              }
+              span{
+                color: #999999;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space:nowrap
+              }
+            }
+          }
+        }
+      }
+
+      .searchlist{
+        &>span{
+          padding-left: 18px;
+          height: 38px;
+          display: block;
+          line-height: 38px;
+          i{
+            color: #0c73c2;
+          }
+        }
+        div{
+          span{
+            padding-left: 18px;
+            display: block;
+            height: 32px;
+            line-height: 32px;
+            background: #f5f5f7;
+            i{
+              margin-right: 10px;
+            }
+          }
+          ul{
+            li{
+              height: 36px;
+              border-bottom: 1px solid #eeeeee;
+              line-height: 36px;
+              padding-left: 40px;
+              cursor: pointer;
+            }
+            li:hover{
+              background: #ededed;
+            }
+          }
+        }
+      }
+    }
 </style>

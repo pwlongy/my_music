@@ -16,32 +16,35 @@
       </div>
     </div>
 
-    <div class="itemAlbum" >
-      <img src="~assets/images/2021-08-29_03.jpg" alt="">
+    <div class="itemAlbum" v-for="(item, index) in hotAlbums" :key='index'>
+      <img v-lazy="item.blurPicUrl" alt="">
       <div>
-        <span>热门50首</span>
+        <span v-text="item.name"></span>
         <ul>
-          <li v-for="(item, index) in Topsong" :key="index">
-            <span v-text="index+1"></span>
+          <li v-for="(i,n) in item.songs" :key="n" @dblclick="pusgsong(i.id, i.dt)">
+            <span v-text="n+1"></span>
             <u><i class="iconfont icon-xinaixin"></i></u>
-            <i v-text="item.name"></i>
+            <i v-text="i.name"></i>
             <h1 >{{item.dt | showtime}}</h1>
           </li>
         </ul>
-        <span @click="lookAll" v-if="Topsong.length >= 10" class="spansong">查看全部{{Topsong.length}}首</span>
+        <span @click="lookAll" v-if="item.songs.length > 10" class="spansong" >查看全部{{item.songs.length}}首</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {getsongerTopSong} from 'utils/findMusic.js'
+import {getsongerTopSong, getsongerAlbum, albumSongs} from 'utils/findMusic.js'
 import {itemListerMinxin} from '@/common/mixin.js'
 export default {
   data () {
     return {
       id: null,
-      Topsong: []
+      // 热门 50 首音乐
+      Topsong: [],
+      // 专辑
+      hotAlbums: []
     }
   },
   mixins: [itemListerMinxin],
@@ -52,10 +55,21 @@ export default {
       console.log(res)
       this.Topsong = res.data.songs
     })
+    // 获取歌手所有专辑
+    getsongerAlbum(this.id).then(res => {
+      this.hotAlbums = res.data.hotAlbums
+
+      // 获取专辑歌曲
+      for(let i = 0; i < this.hotAlbums.length; i++){
+        albumSongs(this.hotAlbums[i].id).then(res => {
+          this.hotAlbums[i].songs = res.data.songs
+        })
+      }
+    })
+    
   },
   methods: {
     lookAll(){
-      console.log(1)
       this.$refs.songli.style.height = 'auto'
     },
     // 播放音乐

@@ -26,14 +26,14 @@
             <li>
               <img src="~assets/images/img05.jpg">
             </li>
-            <li v-for="(item,index) in musicer" :key="index" @dblclick="playmusic(i.id, i.dt)">
+            <li v-for="(item,index) in musicer" :key="index" @dblclick="playmusic(i.id, i.dt)" @click="pushsonger(item.id)">
               <h6 v-text="index+1"></h6>
               <!-- <span>687%</span> -->
               <u v-text="item.name"></u>
             </li>
 
             <li>
-              <span>查看全部<i class="el-icon-arrow-right"></i></span>
+              <span @click="pushSonger">查看全部<i class="el-icon-arrow-right"></i></span>
             </li>
           </ul>
         </div>
@@ -107,7 +107,16 @@ export default {
       this.$router.push("/recommendeSongList/"+id)
     },
     playmusic(id, dt){
+        // 播放音乐
         this.$bus.$emit("sendUrl", id, dt)
+    },
+    // 跳转至歌手详情
+    pushsonger(id){
+      this.$router.push("/songerList/"+id)
+    },
+    // 跳转至所有歌手列表
+    pushSonger(){
+      this.$router.push("/home/songer")
     }
   },
   filters: {

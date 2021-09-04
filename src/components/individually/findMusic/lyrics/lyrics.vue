@@ -1,9 +1,9 @@
 <template>
-  <div class="lyrics">
+  <div class="lyrics" ref="lyrics" v-if="playMusicDetail[0].length !== 0">
     <div class="top">
       <div class="main">
         <div class="left">
-          <img src=""/>
+          <img v-lazy="playMusicDetail[0].al.picUrl"/>
           <div class="operate">
             <span><i class="iconfont icon-aixin_shixin"></i>喜欢</span>
             <span><i class="el-icon-folder-add"></i>收藏</span>
@@ -13,15 +13,15 @@
         </div>
 
         <div class="right">
-          <h1>琼花房</h1>
+          <h1 v-text="playMusicDetail[0].name"></h1>
           <div class="message">
             <span>专辑：<i>琼花房</i></span>
-            <span>歌手：<i>琼花房</i></span>
-            <span>来源：<i>琼花房</i></span>
+            <span>歌手：<i>{{playMusicDetail[0].ar | autor}}</i></span>
+            <span>来源：<i>动态</i></span>
           </div>
 
           <div class="content">
-
+              <p v-text="songWord" style="white-space: pre-wrap;"></p>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
     <div class="bottom">
       <!-- 评论 -->
       <div class="left">
-        <comments :list="commentslist"></comments>
+        <comments :list="commentslist" ></comments>
       </div>
 
       <div class="rightr">
@@ -41,6 +41,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import {getSongWord, getSongCommon} from 'utils/findMusic.js'
 const comments = () => import("components/common/comments.vue")
 export default {
   components: {
@@ -51,7 +52,43 @@ export default {
   },
   data () {
     return {
-      commentslist: []
+      commentslist: [],
+      songWord: '',
+    }
+  },
+  mounted () {
+    // let width = 0
+    // let height = 0
+    // let myTime = null
+    // myTime = setInterval(() => {
+    //   if(width >= 100){
+    //     clearInterval(myTime)
+    //     return 
+    //   }
+    //   width += 10
+    //   height += 10
+    //   this.$refs.lyrics.style.width = width+'%'
+    //   this.$refs.lyrics.style.height = height+ '%'
+    // },16)
+
+    // 获取歌词
+    getSongWord(this.playMusicDetail[0].id).then(res => {
+      this.songWord = res.data.lrc.lyric
+    })
+    // 获取评论
+    getSongCommon(this.playMusicDetail[0].id).then(res => {
+      console.log(res)
+      this.commentslist = res.data.comments
+    })
+  },
+  filters: {
+    autor(value){
+      let name = ''
+      for(let i = 0; i < value.length; i++){
+        name += value[i].name + '/'
+      }
+      name = name.substring(0, name.lastIndexOf('/'))
+      return name
     }
   }
 }
@@ -119,8 +156,26 @@ export default {
           .content{
             margin-top: 40px;
             height: 400px;
-            border: 1px solid #b8b7b8;
+            border-right: 1px solid #b8b7b8;
+            overflow: auto;
+            text-align: center;
+            font-size: 18px;
+            padding: 0 40px;
           }
+            .content::-webkit-scrollbar {
+              width: 4px;    
+              /*height: 4px;*/
+            }
+            .content::-webkit-scrollbar-thumb {
+              border-radius: 10px;
+              -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+              background: rgba(0,0,0,0.2);
+            }
+            .content::-webkit-scrollbar-track {
+              -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+              border-radius: 0;
+              background: rgba(0,0,0,0.1);
+            }
         }
       }
     }

@@ -37,6 +37,12 @@
       </li>
     </ul>
     <span>更多精彩评论<i class="el-icon-arrow-right"></i></span>
+
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      :total="page">
+    </el-pagination>
   </div>
 </template>
 
@@ -45,7 +51,8 @@ import {formatDate} from  '@/common/time.js'
 
 import {comment} from "utils/findMusic.js"
 import {
-  Avatar
+  Avatar,
+  Pagination
 } from "element-ui"
 
 export default {
@@ -61,17 +68,23 @@ export default {
     type: {
       type: Number,
       default: 2
+    },
+    // 数据总条数
+    total: {
+      type: Number,
+      required: true,
     }
   },
   data () {
     return {
       id: null ,
       // 是否点赞
-      t: false
+      t: false,
     }
   },
   components: {
-    [Avatar.name]: Avatar
+    [Avatar.name]: Avatar,
+    [Pagination.name]: Pagination
   },
   filters: {
     showtime(value){
@@ -81,7 +94,11 @@ export default {
   },
   mounted () {
     this.id = this.$route.params.id
-    console.log(this.list)
+  },
+  computed: {
+    page() {
+      return this.total/50
+    }
   },
   methods: {
     // goodClick(){
@@ -240,5 +257,11 @@ export default {
             width: 130px;
             margin: 30px auto;
           }
+    .el-pagination{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
   }
 </style>
