@@ -85,10 +85,15 @@ export default {
       newSonger: []
     }
   },
+  
   mounted () {
+    // 设置浏览器宽度
+    window.resizeTo(1920, 950);
+
     // 获取推荐歌单数据
     getRecommend().then(res => {
       this.recommend = res.data.result
+      console.log(res)
     })
     // 获取 轮播图数据
     getBanner().then(res => {
@@ -106,6 +111,7 @@ export default {
     // 获取新音乐
     getSongerNow(10).then(res => {
       this.newSonger = res.data.result
+      // console.log(res)
     })
   },
   methods: {

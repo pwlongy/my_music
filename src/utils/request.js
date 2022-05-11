@@ -2,11 +2,11 @@ import axios from "axios"
 
 export function request(config) {
 
-  const baseURL_dev = 'http://localhost:8080'
+  const baseURL_dev = 'http://localhost:8081'
 
   const instance = axios.create({
     baseURL: baseURL_dev,
-    timeout: 7000,
+    timeout: 100000,
     headers: {
       'Context-Type': 'application/json;charset=UTF-8'
     }

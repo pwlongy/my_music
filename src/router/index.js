@@ -232,6 +232,10 @@ const routes = [
         component: () => import("components/individually/searchWord/searchChild/searchVideo.vue")
       },
     ]
+  },
+  {
+    path: '/editor',
+    component: () => import("@/views/demo.vue")
   }
 ]
 

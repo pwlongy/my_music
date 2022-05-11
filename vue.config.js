@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   devServer: {
-    proxy: "http://192.168.3.22:3000"
+    proxy: "http://localhost:3000"
     // proxy: {
     //   '/api': {
     //     target: 'http://localhost:3000',

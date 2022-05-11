@@ -18,7 +18,7 @@
           <b
             >{{ item.song.name }}<i>{{ item.song.alias[0] }}</i></b
           >
-          <h3>{{ item.song.hMusic.playTime | showDate }}</h3>
+          <h3>{{item.song.hMusic.playTime | showDate}}</h3>
         </li>
       </ol>
     </ul>
@@ -46,6 +46,7 @@ export default {
   },
   filters: {
     showDate(value) {
+      console.log(value)
       let time = new Date(value);
       return formatDate(time, "mm:ss");
     },

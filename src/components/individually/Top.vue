@@ -159,6 +159,7 @@ export default {
       // 获取用户基本信息
       usermessage(this.uid).then((res) => {
         this.getUserMessage(res.data.profile);
+        console.log(res)
       });
     }
     this.$bus.$on("updatauser", () => {

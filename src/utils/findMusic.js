@@ -40,7 +40,7 @@ export function getCopywriter(){
 // 
 export function getpersomalized(){
   return request({
-    url: "/personalized/privatecontent/list",
+    url: " /personalized/privatecontent/list",
     method: 'get',
     params: {
       limit: 3
